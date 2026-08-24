@@ -379,11 +379,10 @@ Data and privacy controls are available from WatchSpire settings.
 
 == Screenshots ==
 
-1. **WatchSpire Dashboard** — see site health, monitor status, recent failures, checks, response times, submissions, 404s, WordPress changes, and AI crawler activity.
-2. **Monitors Status** — view every active, warning, failing, or paused monitor with its most recent result.
-3. **Broken Links & Images** — scan content in controlled background batches with progress, filters, pause, resume, recheck, and ignore actions.
-4. **Change Log** — review WordPress core, plugin, theme, user, and important configuration changes.
-5. **Settings** — manage monitors, alerts, scanning, scheduling, retention, privacy, and other WatchSpire preferences.
+1. **Dashboard** — health score, active monitors, checks, failures, response time and uptime at a glance, with monitoring overview, checks over time, recent failures, submissions, top 404s, recent changes, AI crawler activity, and the status of every monitor.
+2. **Change Log** — every plugin, theme, core, and user event WatchSpire has recorded, filterable by type, date range, user and search, and exportable.
+3. **Broken Links & Images** — scan results with progress, pause, resume and cancel controls, plus filters and per-row recheck and ignore actions.
+4. **Settings** — alert email, key page, weekly summary, monitor intervals, auto-resolve, data retention, export, link scanning, and a plain summary of what does and does not leave your site.
 
 == Changelog ==
 
