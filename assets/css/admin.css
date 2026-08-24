@@ -1,0 +1,3514 @@
+/* ═══════════════════════════════════════════════════════════════════
+   WatchSpire – Admin UI
+   Self-contained: no external fonts, build step, or JS framework —
+   only WP-core Dashicons. Follows the same token/component language as
+   our other 2025-era admin UIs (Merchant Feed Booster, AttributeHub,
+   AI Store Signals): dark gradient hero, gradient nav pills, circular
+   gauges, shimmer progress bars.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Design tokens ─────────────────────────────────────────────────── */
+.watchspire-app {
+	--c-primary:   #4f46e5;
+	--c-violet:    #7c3aed;
+	--c-green:     #10b981;
+	--c-amber:     #f59e0b;
+	--c-red:       #ef4444;
+	--c-blue:      #3b82f6;
+	--c-slate-50:  #f8fafc;
+	--c-slate-100: #f1f5f9;
+	--c-slate-200: #e2e8f0;
+	--c-slate-300: #cbd5e1;
+	--c-slate-400: #94a3b8;
+	--c-slate-500: #64748b;
+	--c-slate-600: #475569;
+	--c-slate-700: #334155;
+	--c-slate-800: #1e293b;
+	--c-slate-900: #0f172a;
+	--c-white:     #ffffff;
+	--shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.04);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+	--shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.06);
+	--ring-primary: 0 0 0 3px rgba(79, 70, 229, 0.2);
+	--r-sm: 6px;
+	--r-md: 10px;
+	--r-lg: 16px;
+	--r-xl: 20px;
+	--ease: cubic-bezier(0.4, 0, 0.2, 1);
+	--t: 0.18s;
+	--font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+	font-family: var(--font);
+	color: var(--c-slate-700);
+}
+
+/* Horizontal gutter is owned entirely by margin on the .wrap itself —
+   no more cancel-then-repad trick. WP core ships an asymmetric default
+   .wrap margin (small on the left, ~20px on the right); combined with
+   the old negative-margin "reset" here, that was netting out to a
+   near-zero gap on the left in practice. A single explicit, symmetric,
+   !important margin is the only rule that controls this now — nothing
+   else in this file should set .watchspire-app/.wrap margin or
+   horizontal padding. Kept at a flat 20px on both sides at every
+   breakpoint so the content never sits closer than 20px to either
+   edge of the admin content area. */
+.wrap.watchspire-app {
+	margin: 20px 20px 40px 20px !important;
+	padding: 0 !important;
+}
+
+@media (max-width: 782px) {
+	.wrap.watchspire-app {
+		margin: 16px 20px 32px 20px !important;
+	}
+}
+
+.watchspire-app,
+.watchspire-app * {
+	box-sizing: border-box;
+}
+
+.watchspire-app h1,
+.watchspire-app h2,
+.watchspire-app h3,
+.watchspire-app h4 {
+	font-family: var(--font);
+	color: var(--c-slate-900);
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+/* No padding-top here: .wrap.watchspire-app's own top margin (above) is
+   the single source of top spacing, shared by every WatchSpire screen
+   via open_shell(). Stacking a second top offset here used to double
+   the gap between the admin bar and the page title. */
+.watchspire-shell {
+	max-width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO (dashboard only)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-hero {
+	background: linear-gradient(135deg, #0f0c29 0%, #302b63 55%, #24243e 100%);
+	border-radius: var(--r-xl);
+	padding: 40px 40px 36px;
+	color: var(--c-white);
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 24px;
+}
+
+.watchspire-hero::before {
+	content: "";
+	position: absolute;
+	width: 560px;
+	height: 560px;
+	background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 60%);
+	top: -220px;
+	right: -120px;
+	pointer-events: none;
+}
+
+.watchspire-hero::after {
+	content: "";
+	position: absolute;
+	width: 320px;
+	height: 320px;
+	background: radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 60%);
+	bottom: -80px;
+	left: 30%;
+	pointer-events: none;
+}
+
+.watchspire-hero-grid {
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+	background-size: 36px 36px;
+	pointer-events: none;
+}
+
+.watchspire-hero-inner {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 40px;
+	flex-wrap: wrap;
+}
+
+.watchspire-hero-content {
+	flex: 1;
+	min-width: 260px;
+}
+
+.watchspire-hero-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 100px;
+	padding: 5px 14px 5px 9px;
+	font-size: 12px;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.8);
+	margin-bottom: 18px;
+	letter-spacing: 0.02em;
+}
+
+.watchspire-hero-eyebrow-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	flex-shrink: 0;
+	position: relative;
+	background: #4ade80;
+}
+
+.watchspire-hero-eyebrow.is-warn .watchspire-hero-eyebrow-dot { background: var(--c-amber); }
+.watchspire-hero-eyebrow.is-fail .watchspire-hero-eyebrow-dot { background: var(--c-red); }
+
+.watchspire-hero-eyebrow-dot::after {
+	content: "";
+	position: absolute;
+	inset: -3px;
+	border-radius: 50%;
+	border: 2px solid currentColor;
+	opacity: 0;
+	animation: watchspire-pulse 2.2s ease-out infinite;
+}
+
+@keyframes watchspire-pulse {
+	0% { opacity: 0.7; transform: scale(1); }
+	100% { opacity: 0; transform: scale(1.8); }
+}
+
+.watchspire-hero-title {
+	font-size: 32px !important;
+	font-weight: 800 !important;
+	color: var(--c-white) !important;
+	margin: 0 0 10px !important;
+	line-height: 1.1 !important;
+	letter-spacing: -0.02em !important;
+	text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+.watchspire-hero-subtitle {
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.55);
+	margin: 0 0 26px;
+	line-height: 1.65;
+	max-width: 440px;
+}
+
+.watchspire-hero-chips {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-bottom: 30px;
+}
+
+.watchspire-hero-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: var(--r-md);
+	padding: 6px 13px;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.88);
+	letter-spacing: 0.01em;
+}
+
+.watchspire-hero-chip-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.watchspire-hero-btns {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.watchspire-hero-score {
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+
+.watchspire-hero-no-score {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 14px;
+	width: 170px;
+	text-align: center;
+	padding: 20px;
+	border: 2px dashed rgba(255, 255, 255, 0.15);
+	border-radius: var(--r-lg);
+}
+
+.watchspire-hero-no-score p {
+	color: rgba(255, 255, 255, 0.45);
+	font-size: 13px;
+	margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GAUGE (circular SVG progress ring)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-gauge {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.watchspire-gauge--xl .watchspire-gauge-svg { width: 170px; height: 170px; }
+.watchspire-gauge--lg .watchspire-gauge-svg { width: 100px; height: 100px; }
+.watchspire-gauge--md .watchspire-gauge-svg { width: 76px; height: 76px; }
+.watchspire-gauge--sm .watchspire-gauge-svg { width: 56px; height: 56px; }
+
+.watchspire-gauge-svg {
+	display: block;
+	transform: rotate(-90deg);
+	overflow: visible;
+}
+
+.watchspire-gauge--xl .watchspire-gauge-svg {
+	filter: drop-shadow(0 0 22px rgba(99, 102, 241, 0.45));
+}
+
+/* Open-bottom arc (speedometer) variant, used by Charts::gauge(). A
+   <circle> path starts at 3 o'clock and runs clockwise, so rotating
+   135° puts the arc's start at ~7:30 and centres its 90° dash gap at
+   the bottom. Scoped to --arc so the full-ring gauges elsewhere (the
+   Broken Links scan progress ring) keep the base -90° rotation. */
+.watchspire-gauge--arc .watchspire-gauge-svg {
+	transform: rotate(135deg);
+}
+
+.watchspire-gauge--arc .watchspire-gauge-track,
+.watchspire-gauge--arc .watchspire-gauge-fill {
+	stroke-linecap: round;
+}
+
+.watchspire-gauge-track {
+	fill: none;
+	stroke: rgba(255, 255, 255, 0.08);
+	stroke-width: 4.5;
+}
+
+.watchspire-gauge--lg .watchspire-gauge-track,
+.watchspire-gauge--md .watchspire-gauge-track,
+.watchspire-gauge--sm .watchspire-gauge-track {
+	stroke: var(--c-slate-100);
+	stroke-width: 3.5;
+}
+
+.watchspire-gauge-fill {
+	fill: none;
+	stroke-width: 4.5;
+	stroke-linecap: round;
+	transition: stroke-dasharray 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.watchspire-gauge--lg .watchspire-gauge-fill,
+.watchspire-gauge--md .watchspire-gauge-fill,
+.watchspire-gauge--sm .watchspire-gauge-fill {
+	stroke-width: 3.5;
+}
+
+.watchspire-gauge-center {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1px;
+	pointer-events: none;
+}
+
+.watchspire-gauge--xl .watchspire-gauge-num { font-size: 52px; color: var(--c-white); }
+.watchspire-gauge--lg .watchspire-gauge-num { font-size: 22px; }
+.watchspire-gauge--md .watchspire-gauge-num { font-size: 18px; }
+.watchspire-gauge--sm .watchspire-gauge-num { font-size: 15px; }
+
+.watchspire-gauge-num {
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: -0.04em;
+	display: block;
+}
+
+.watchspire-gauge--xl .watchspire-gauge-tier {
+	font-size: 10px;
+	color: rgba(255, 255, 255, 0.55);
+}
+
+.watchspire-gauge-tier {
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	display: block;
+	color: var(--c-slate-400);
+	font-size: 9px;
+}
+
+.watchspire-hero-gauge-caption {
+	font-size: 11px;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.4);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	text-align: center;
+	margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS (scoped overrides of core .button)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-app .button,
+.watchspire-app .button-primary,
+.watchspire-app .watchspire-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 7px;
+	padding: 8px 16px;
+	height: auto;
+	border-radius: var(--r-sm);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.4;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background var(--t) var(--ease), box-shadow var(--t) var(--ease), transform var(--t) var(--ease), border-color var(--t) var(--ease), color var(--t) var(--ease);
+	white-space: nowrap;
+	font-family: var(--font);
+	letter-spacing: 0.01em;
+	text-shadow: none;
+	box-shadow: var(--shadow-xs);
+}
+
+/* Dashicons glyphs are drawn via a `:before` pseudo-element whose vertical
+   position follows the icon font's own baseline metrics — not the
+   button's flex centering, since vertical-align has no effect on a flex
+   item. Making the glyph's own span a flex container (its `:before`
+   becomes a flex item too) centers the actual glyph instead of just its
+   box, which is what fixes the "icon sits low" look in buttons. */
+.watchspire-app .button .dashicons,
+.watchspire-app .button-primary .dashicons,
+.watchspire-app .watchspire-btn .dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.watchspire-app .button:focus-visible,
+.watchspire-app .button-primary:focus-visible {
+	outline: none;
+	box-shadow: var(--ring-primary);
+}
+
+.watchspire-app .button-primary {
+	background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-violet) 100%);
+	border-color: transparent;
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35);
+}
+
+.watchspire-app .button-primary:hover,
+.watchspire-app .button-primary:focus {
+	background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+	transform: translateY(-1px);
+	box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+	color: #fff;
+	border-color: transparent;
+}
+
+.watchspire-app .button:not(.button-primary) {
+	background: var(--c-white);
+	color: var(--c-slate-700);
+	border-color: var(--c-slate-200);
+}
+
+.watchspire-app .button:not(.button-primary):hover {
+	background: var(--c-slate-50);
+	border-color: var(--c-slate-300);
+	color: var(--c-slate-900);
+	box-shadow: var(--shadow-sm);
+}
+
+.watchspire-app .button-link-delete {
+	background: var(--c-white);
+	color: var(--c-red);
+	border-color: var(--c-red);
+	box-shadow: none;
+}
+
+.watchspire-app .button-link-delete:hover {
+	background: #fef2f2;
+	box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+	color: var(--c-red);
+}
+
+.watchspire-btn--hero-primary {
+	background: var(--c-white);
+	color: #312e81;
+	border: 1px solid var(--c-white);
+	font-weight: 700;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	padding: 9px 18px;
+	border-radius: var(--r-sm);
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	text-decoration: none;
+	font-size: 13px;
+	cursor: pointer;
+	transition: all var(--t) var(--ease);
+}
+
+.watchspire-btn--hero-primary:hover {
+	background: rgba(255, 255, 255, 0.92);
+	transform: translateY(-1px);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+	color: #1e1b4b;
+}
+
+.watchspire-btn--hero-secondary {
+	background: rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.9);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 9px 18px;
+	border-radius: var(--r-sm);
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all var(--t) var(--ease);
+}
+
+.watchspire-btn--hero-secondary:hover {
+	background: rgba(255, 255, 255, 0.16);
+	border-color: rgba(255, 255, 255, 0.3);
+	color: var(--c-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGE HEADER (non-hero pages: change log, links, settings)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-page-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 4px 0 20px;
+	margin-bottom: 22px;
+	border-bottom: 1px solid var(--c-slate-200);
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.watchspire-page-title {
+	font-size: 22px !important;
+	font-weight: 800 !important;
+	color: var(--c-slate-900) !important;
+	margin: 0 !important;
+	letter-spacing: -0.01em !important;
+	line-height: 1.2 !important;
+}
+
+.watchspire-page-desc {
+	font-size: 13px;
+	color: var(--c-slate-400);
+	margin: 4px 0 0;
+}
+
+.watchspire-breadcrumb-title {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+}
+
+.watchspire-breadcrumb-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 7px;
+	background: linear-gradient(135deg, var(--c-primary), var(--c-violet));
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35);
+	flex-shrink: 0;
+}
+
+.watchspire-breadcrumb-icon svg {
+	width: 13px;
+	height: 13px;
+	display: block;
+}
+
+.watchspire-breadcrumb-root {
+	color: var(--c-slate-400) !important;
+	font-weight: 700 !important;
+	text-decoration: none !important;
+}
+
+.watchspire-breadcrumb-root:hover {
+	color: var(--c-slate-600) !important;
+}
+
+.watchspire-breadcrumb-sep {
+	color: var(--c-slate-300);
+	font-weight: 400;
+}
+
+.watchspire-breadcrumb-current {
+	color: var(--c-slate-900);
+}
+
+.watchspire-page-header-end {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+	gap: 16px;
+	margin: 0 0 28px;
+}
+
+.watchspire-card {
+	background: var(--c-white);
+	border-radius: var(--r-lg);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	padding: 20px 22px;
+	box-shadow: var(--shadow-sm);
+	position: relative;
+	overflow: hidden;
+	transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.watchspire-card::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--c-primary), var(--c-violet));
+	opacity: 0;
+	transition: opacity var(--t) var(--ease);
+}
+
+.watchspire-card:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+}
+
+.watchspire-card:hover::before {
+	opacity: 1;
+}
+
+.watchspire-card__header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.watchspire-card__title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.watchspire-card__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: var(--r-sm);
+	flex-shrink: 0;
+	background: var(--c-slate-50);
+	color: var(--c-primary);
+}
+
+.watchspire-card__icon .dashicons {
+	font-size: 17px;
+	width: 17px;
+	height: 17px;
+}
+
+.watchspire-card__header h3 {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.3;
+	color: var(--c-slate-800);
+}
+
+.watchspire-card__message {
+	margin: 0 0 10px;
+	color: var(--c-slate-600);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.watchspire-card__hint {
+	margin: 0 0 10px;
+	color: var(--c-amber);
+	font-size: 12px;
+	background: #fffbeb;
+	border-radius: var(--r-sm);
+	padding: 6px 9px;
+}
+
+.watchspire-card__meta {
+	margin: 0 0 14px;
+	color: var(--c-slate-300);
+	font-size: 11.5px;
+}
+
+.watchspire-panel {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: var(--r-xl);
+	box-shadow: var(--shadow-sm);
+	padding: 22px 24px;
+	margin-bottom: 22px;
+}
+
+.watchspire-section-title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 11px !important;
+	font-weight: 700 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.08em !important;
+	color: var(--c-slate-400) !important;
+	margin: 0 0 16px !important;
+}
+
+.watchspire-section-title .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	color: var(--c-slate-300);
+}
+
+.watchspire-columns {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	align-items: start;
+}
+
+@media (max-width: 960px) {
+	.watchspire-columns {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STATUS BADGES
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 3px 10px;
+	border-radius: 100px;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+}
+
+.watchspire-badge .dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+}
+
+.watchspire-badge.is-pass { background: #ecfdf5; color: var(--c-green); }
+.watchspire-badge.is-warn { background: #fffbeb; color: var(--c-amber); }
+.watchspire-badge.is-fail { background: #fef2f2; color: var(--c-red); }
+.watchspire-badge.is-unknown { background: var(--c-slate-100); color: var(--c-slate-500); }
+.watchspire-badge.is-purple { background: #f5f3ff; color: #a855f7; }
+
+/* Status dot with pulse (used inline, e.g. table cells) */
+
+.watchspire-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-weight: 600;
+	font-size: 13px;
+}
+
+.watchspire-status-dot {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	position: relative;
+	flex-shrink: 0;
+}
+
+.watchspire-status-dot--active { background: var(--c-green); }
+.watchspire-status-dot--inactive { background: var(--c-slate-300); }
+.watchspire-status-dot--warn { background: var(--c-amber); }
+
+.watchspire-status-dot--active::after {
+	content: "";
+	position: absolute;
+	inset: -3px;
+	border-radius: 50%;
+	border: 2px solid var(--c-green);
+	opacity: 0;
+	animation: watchspire-ring-pulse 2.4s ease-out infinite;
+}
+
+@keyframes watchspire-ring-pulse {
+	0% { opacity: 0.7; transform: scale(1); }
+	100% { opacity: 0; transform: scale(1.7); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TABLES
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-table-wrap {
+	background: var(--c-white);
+	border-radius: var(--r-lg);
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
+	margin-bottom: 20px;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.watchspire-app table.watchspire-table {
+	border: none !important;
+	margin: 0;
+	background: transparent;
+	width: 100%;
+	border-collapse: separate !important;
+	border-spacing: 0 !important;
+}
+
+.watchspire-app table.watchspire-table thead th {
+	background: var(--c-slate-50) !important;
+	color: var(--c-slate-400) !important;
+	font-size: 10.5px !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.07em !important;
+	font-weight: 700 !important;
+	border: none !important;
+	border-bottom: 1px solid var(--c-slate-200) !important;
+	padding: 10px 16px !important;
+}
+
+.watchspire-app table.watchspire-table tbody td {
+	border: none !important;
+	border-bottom: 1px solid var(--c-slate-100) !important;
+	padding: 12px 16px !important;
+	font-size: 13px !important;
+	color: var(--c-slate-700);
+	vertical-align: middle;
+	background: var(--c-white) !important;
+}
+
+.watchspire-app table.watchspire-table tbody tr:last-child td {
+	border-bottom: none !important;
+}
+
+.watchspire-app table.watchspire-table tbody tr:hover td {
+	background: var(--c-slate-50) !important;
+}
+
+.watchspire-empty {
+	text-align: center;
+	padding: 48px 20px;
+	color: var(--c-slate-400);
+	font-size: 13.5px;
+}
+
+.watchspire-empty .dashicons {
+	font-size: 32px;
+	width: 32px;
+	height: 32px;
+	color: var(--c-slate-200);
+	margin-bottom: 10px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.watchspire-truncate {
+	max-width: 320px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.watchspire-tag {
+	display: inline-block;
+	background: var(--c-slate-100);
+	color: var(--c-slate-600);
+	border-radius: 4px;
+	padding: 1px 7px;
+	font-size: 10px;
+	font-weight: 700;
+	margin-left: 5px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CHARTS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-chart-card {
+	background: var(--c-white);
+	border: 1px solid var(--c-slate-100);
+	border-radius: var(--r-md);
+	padding: 16px 18px 12px;
+	margin-bottom: 8px;
+}
+
+.watchspire-sparkline {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* width, not max-width: the chart is drawn at a nominal viewBox size and
+   scaled to its container, so max-width would pin it to that nominal width
+   and leave the right-hand side of a wider card empty. */
+.watchspire-bar-chart {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Hover affordance. The hit rect spans the full column height so short bars
+   are still easy to target — without it you'd have to land on a few pixels
+   of bar. Everything is CSS-driven, so the chart stays JS-free. */
+.watchspire-bar-chart .watchspire-bar-hit {
+	pointer-events: all;
+}
+
+.watchspire-bar-chart .watchspire-bar-rect {
+	transition: opacity var(--t) var(--ease);
+}
+
+.watchspire-bar-chart .watchspire-bar-group:hover .watchspire-bar-rect {
+	opacity: 0.78;
+}
+
+.watchspire-bar-chart .watchspire-bar-tip {
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--t) var(--ease);
+}
+
+.watchspire-bar-chart .watchspire-bar-group:hover .watchspire-bar-tip {
+	opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCAN PROGRESS (shimmer)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-scan-controls {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: var(--r-lg);
+	padding: 20px 22px;
+	margin-bottom: 22px;
+	box-shadow: var(--shadow-sm);
+}
+
+.watchspire-scan-status-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin-bottom: 14px;
+}
+
+.watchspire-progress-track {
+	width: 100%;
+	height: 8px;
+	border-radius: 100px;
+	background: var(--c-slate-100);
+	overflow: hidden;
+	margin-bottom: 14px;
+}
+
+.watchspire-progress-fill {
+	height: 100%;
+	border-radius: 100px;
+	background: linear-gradient(90deg, var(--c-primary), var(--c-violet));
+	transition: width 0.5s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.watchspire-progress-fill::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+	animation: watchspire-shimmer 1.5s infinite;
+}
+
+@keyframes watchspire-shimmer {
+	0% { transform: translateX(-100%); }
+	100% { transform: translateX(200%); }
+}
+
+.watchspire-scan-controls-row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-bottom: 14px;
+}
+
+.watchspire-scan-gauge-block {
+	flex-shrink: 0;
+}
+
+.watchspire-scan-status-block {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	flex: 1;
+	min-width: 200px;
+}
+
+.watchspire-scan-progress-text {
+	color: var(--c-slate-400);
+	font-size: 12.5px;
+}
+
+.watchspire-scan-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TABS (Broken Links & Images screen — All / Broken Links / Broken
+   Images / Ignored)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-tabs {
+	display: flex;
+	gap: 4px;
+	flex-wrap: wrap;
+	border-bottom: 1px solid var(--c-slate-200);
+	margin-bottom: 18px;
+}
+
+.watchspire-tabs a {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 10px 2px;
+	margin-right: 22px;
+	font-size: 13px;
+	font-weight: 650;
+	color: var(--c-slate-500);
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	transition: color var(--t) var(--ease), border-color var(--t) var(--ease);
+}
+
+.watchspire-tabs a:hover {
+	color: var(--c-slate-800);
+}
+
+.watchspire-tabs a.is-active {
+	color: var(--c-primary);
+	border-bottom-color: var(--c-primary);
+}
+
+.watchspire-tabs a .count {
+	color: var(--c-slate-300);
+	font-weight: 600;
+}
+
+.watchspire-tabs a.is-active .count {
+	color: var(--c-primary);
+	opacity: 0.7;
+}
+
+/* Quick filter toolbar (Broken Links & Images screen) */
+
+.watchspire-quickfilters {
+	margin: 0 0 18px;
+}
+
+.watchspire-quickfilters form {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.watchspire-quickfilters select {
+	min-width: 130px;
+}
+
+.watchspire-search {
+	position: relative;
+	margin-left: auto;
+	min-width: 220px;
+}
+
+.watchspire-search input[type="search"] {
+	width: 100%;
+	padding-right: 32px !important;
+}
+
+.watchspire-search-submit {
+	position: absolute;
+	right: 9px;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	color: var(--c-slate-300);
+}
+
+.watchspire-search-submit:hover {
+	color: var(--c-slate-600);
+}
+
+.watchspire-search-submit .dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+
+/* Icon-only row actions (Broken Links & Images table) */
+
+.watchspire-row-actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.watchspire-icon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border-radius: var(--r-sm);
+	border: 1px solid var(--c-slate-200);
+	background: var(--c-white);
+	color: var(--c-slate-500);
+	cursor: pointer;
+	text-decoration: none;
+	transition: all var(--t) var(--ease);
+}
+
+.watchspire-icon-btn .dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+}
+
+.watchspire-icon-btn:hover {
+	background: var(--c-slate-50);
+	border-color: var(--c-slate-300);
+	color: var(--c-slate-900);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FILTERS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-filter-form {
+	margin: 0 0 18px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.watchspire-app select {
+	border-radius: var(--r-sm);
+	border: 1.5px solid var(--c-slate-200);
+	font-size: 13px;
+	padding: 6px 30px 6px 10px;
+	color: var(--c-slate-800);
+	background-color: var(--c-slate-50);
+}
+
+.watchspire-app select:focus {
+	border-color: var(--c-primary);
+	box-shadow: var(--ring-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SETTINGS — horizontal tab bar + card grid
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-settings-tabbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px;
+	background: var(--c-slate-100);
+	border-radius: var(--r-lg);
+	padding: 5px;
+	margin-bottom: 22px;
+}
+
+.watchspire-settings-tabbar a {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 9px 16px;
+	border-radius: var(--r-md);
+	text-decoration: none;
+	color: var(--c-slate-500);
+	font-size: 13px;
+	font-weight: 650;
+	transition: all var(--t) var(--ease);
+}
+
+.watchspire-settings-tabbar a .dashicons {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	color: var(--c-slate-400);
+	flex-shrink: 0;
+}
+
+.watchspire-settings-tabbar a:hover {
+	color: var(--c-slate-800);
+}
+
+.watchspire-settings-tabbar a.is-active {
+	background: var(--c-white);
+	color: var(--c-slate-900);
+	box-shadow: var(--shadow-sm);
+}
+
+.watchspire-settings-tabbar a.is-active .dashicons {
+	color: var(--c-primary);
+}
+
+.watchspire-settings-panel {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: var(--r-xl);
+	box-shadow: var(--shadow-sm);
+	padding: 26px 28px;
+}
+
+/* Card grid used by the General tab: a wide General Settings card on the
+   left, a stack of narrower cards on the right, matching the reference
+   design's overview-dashboard layout. */
+
+.watchspire-settings-grid {
+	display: grid;
+	grid-template-columns: 1.6fr 1fr;
+	gap: 20px;
+	align-items: start;
+	margin-bottom: 20px;
+}
+
+@media (max-width: 960px) {
+	.watchspire-settings-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.watchspire-settings-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.watchspire-settings-card {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: var(--r-xl);
+	box-shadow: var(--shadow-sm);
+	padding: 24px 26px;
+}
+
+.watchspire-settings-card--full {
+	margin-bottom: 22px;
+}
+
+.watchspire-settings-card__head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 18px;
+}
+
+.watchspire-settings-card__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: var(--r-sm);
+	background: var(--c-slate-50);
+	color: var(--c-primary);
+	flex-shrink: 0;
+}
+
+.watchspire-settings-card__icon .dashicons {
+	font-size: 17px;
+	width: 17px;
+	height: 17px;
+}
+
+.watchspire-settings-card__head h3 {
+	margin: 0;
+	font-size: 14.5px;
+	font-weight: 700;
+	color: var(--c-slate-900);
+}
+
+.watchspire-privacy-col-title {
+	margin: 0 0 12px;
+	font-size: 12.5px;
+	font-weight: 700;
+	color: var(--c-slate-700);
+}
+
+.watchspire-check-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.watchspire-check-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-size: 12.5px;
+	color: var(--c-slate-600);
+	line-height: 1.5;
+}
+
+.watchspire-check-list .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	margin-top: 1px;
+}
+
+.watchspire-check-list.is-check .dashicons { color: var(--c-green); }
+.watchspire-check-list.is-info .dashicons { color: var(--c-primary); }
+
+/* Vertical field: label (+ optional tooltip icon) above the control,
+   description below — used throughout the General tab's cards. */
+
+.watchspire-field {
+	margin-bottom: 18px;
+}
+
+.watchspire-field:last-child {
+	margin-bottom: 0;
+}
+
+.watchspire-field__label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	font-weight: 650;
+	color: var(--c-slate-700);
+	margin-bottom: 7px;
+}
+
+.watchspire-field__label .dashicons,
+.watchspire-toggle-row__label .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	color: var(--c-slate-300);
+	cursor: help;
+}
+
+.watchspire-field input,
+.watchspire-field select {
+	width: 100%;
+}
+
+.watchspire-field__desc {
+	margin: 7px 0 0;
+	font-size: 12px;
+	color: var(--c-slate-400);
+	line-height: 1.5;
+}
+
+.watchspire-field-inline {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	font-size: 13px;
+	color: var(--c-slate-600);
+	margin-top: 4px;
+}
+
+.watchspire-field-inline select,
+.watchspire-field-inline input {
+	width: auto;
+}
+
+.watchspire-settings-panel h2 {
+	font-size: 15px;
+	margin: 30px 0 6px;
+	padding-top: 22px;
+	border-top: 1px solid var(--c-slate-100);
+	color: var(--c-slate-800);
+}
+
+.watchspire-settings-panel h2:first-child {
+	margin-top: 0;
+	padding-top: 0;
+	border-top: none;
+}
+
+.watchspire-settings-panel .description {
+	color: var(--c-slate-400);
+	font-size: 12.5px;
+}
+
+.watchspire-app .form-table {
+	margin-top: 4px;
+}
+
+.watchspire-app .form-table th {
+	font-weight: 600;
+	color: var(--c-slate-700);
+	font-size: 13px;
+	padding-left: 0;
+}
+
+.watchspire-app .form-table td {
+	padding-bottom: 18px;
+}
+
+.watchspire-app input[type="text"],
+.watchspire-app input[type="email"],
+.watchspire-app input[type="url"],
+.watchspire-app input[type="password"],
+.watchspire-app input[type="number"],
+.watchspire-app input[type="time"],
+.watchspire-app input[type="date"],
+.watchspire-app input[type="search"],
+.watchspire-app textarea {
+	border-radius: var(--r-sm);
+	border: 1.5px solid var(--c-slate-200);
+	box-shadow: none;
+	font-size: 13.5px;
+	padding: 7px 10px;
+	background: var(--c-slate-50);
+	transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease), background var(--t) var(--ease);
+}
+
+.watchspire-app input:focus,
+.watchspire-app select:focus,
+.watchspire-app textarea:focus {
+	border-color: var(--c-primary);
+	box-shadow: var(--ring-primary);
+	background: var(--c-white);
+	outline: none;
+}
+
+/* Toggle switch (built on a real checkbox for accessibility) */
+
+.watchspire-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	font-size: 13px;
+	color: var(--c-slate-600);
+	font-weight: 600;
+}
+
+.watchspire-toggle input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+}
+
+.watchspire-toggle__track {
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+	width: 44px;
+	height: 24px;
+	border-radius: 100px;
+	background: var(--c-slate-200);
+	flex-shrink: 0;
+	transition: background var(--t) var(--ease);
+}
+
+.watchspire-toggle__track::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+	transition: transform var(--t) var(--ease);
+}
+
+.watchspire-toggle input:checked + .watchspire-toggle__track {
+	background: var(--c-primary);
+}
+
+.watchspire-toggle input:checked + .watchspire-toggle__track::after {
+	transform: translateX(20px);
+}
+
+.watchspire-toggle input:focus-visible + .watchspire-toggle__track {
+	outline: 2px solid var(--c-primary);
+	outline-offset: 2px;
+}
+
+.watchspire-toggle-row {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 14px 0;
+	border-top: 1px solid var(--c-slate-100);
+}
+
+.watchspire-toggle-row:first-child {
+	border-top: none;
+}
+
+.watchspire-toggle-row__label {
+	font-size: 13.5px;
+	font-weight: 650;
+	color: var(--c-slate-800);
+	margin: 0 0 3px;
+}
+
+.watchspire-toggle-row__desc {
+	font-size: 12px;
+	color: var(--c-slate-400);
+	margin: 0;
+	max-width: 520px;
+	line-height: 1.5;
+}
+
+/* Notices, restyled to match */
+
+.watchspire-app .notice,
+.watchspire-app .notice.inline {
+	border-radius: var(--r-sm) !important;
+	border-left-width: 4px !important;
+	box-shadow: none;
+	padding: 10px 14px;
+}
+
+.watchspire-app .notice-success { border-left-color: var(--c-green) !important; background: #ecfdf5; }
+.watchspire-app .notice-error { border-left-color: var(--c-red) !important; background: #fef2f2; }
+.watchspire-app .notice-warning { border-left-color: var(--c-amber) !important; background: #fffbeb; }
+.watchspire-app .notice-info { border-left-color: var(--c-primary) !important; background: #eef2ff; }
+
+/* Bespoke notice card (currently: the WP-Cron reliability notice) — a
+   fuller card than the left-border .notice style above, with its own
+   icon/body/dismiss layout. */
+
+.watchspire-notice {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	border-radius: var(--r-xl);
+	padding: 16px 20px;
+	margin: 0 0 20px;
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	box-shadow: var(--shadow-sm);
+	flex-wrap: wrap;
+}
+
+.watchspire-notice-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.watchspire-notice--info .watchspire-notice-icon {
+	background: linear-gradient(135deg, var(--c-primary), var(--c-violet));
+	color: #fff;
+}
+
+.watchspire-notice-icon .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.watchspire-notice-body {
+	flex: 1;
+	min-width: 220px;
+}
+
+.watchspire-notice-title {
+	margin: 0 0 3px;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--c-slate-900);
+}
+
+.watchspire-notice-body p {
+	margin: 0 0 6px;
+	font-size: 12.5px;
+	color: var(--c-slate-500);
+	line-height: 1.5;
+}
+
+.watchspire-notice-body p:last-child {
+	margin-bottom: 0;
+}
+
+.watchspire-notice-body details {
+	margin-top: 4px;
+}
+
+.watchspire-notice-body summary {
+	font-size: 12px;
+	font-weight: 650;
+	color: var(--c-slate-500);
+	cursor: pointer;
+}
+
+.watchspire-notice-body code {
+	display: inline-block;
+	background: var(--c-slate-50);
+	border: 1px solid var(--c-slate-200);
+	border-radius: 6px;
+	padding: 6px 10px;
+	margin-top: 6px;
+	font-size: 11.5px;
+	color: var(--c-slate-700);
+}
+
+.watchspire-notice-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-shrink: 0;
+	margin-left: auto;
+}
+
+.watchspire-notice-dismiss {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	flex-shrink: 0;
+	background: transparent;
+	border: none;
+	border-radius: var(--r-sm);
+	color: var(--c-slate-300);
+	cursor: pointer;
+	font-family: var(--font);
+}
+
+.watchspire-notice-dismiss:hover {
+	background: var(--c-slate-50);
+	color: var(--c-slate-600);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ONBOARDING WIZARD
+   ═══════════════════════════════════════════════════════════════════ */
+
+.watchspire-onboarding-shell {
+	min-height: calc(100vh - 120px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 40px 20px;
+	position: relative;
+}
+
+.watchspire-onboarding-shell::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(circle at 30% 20%, rgba(79, 70, 229, 0.06) 0%, transparent 55%);
+	pointer-events: none;
+}
+
+.watchspire-onboarding {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: var(--r-xl);
+	box-shadow: var(--shadow-xl);
+	padding: 40px 44px;
+	max-width: 560px;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.watchspire-onboarding::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, var(--c-primary), var(--c-violet));
+}
+
+.watchspire-onboarding__brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 24px;
+}
+
+.watchspire-brand__mark {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: var(--r-md);
+	background: linear-gradient(135deg, var(--c-primary), var(--c-violet));
+	color: #fff;
+	box-shadow: 0 4px 10px rgba(79, 70, 229, 0.35);
+	flex-shrink: 0;
+}
+
+.watchspire-brand__mark svg {
+	width: 20px;
+	height: 20px;
+	display: block;
+}
+
+.watchspire-brand__name {
+	font-size: 17px;
+	font-weight: 800;
+	color: var(--c-slate-900);
+	letter-spacing: -0.02em;
+}
+
+.watchspire-onboarding h1,
+.watchspire-onboarding h2 {
+	font-size: 23px;
+	margin: 0 0 6px;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+}
+
+.watchspire-onboarding__intro {
+	color: var(--c-slate-400);
+	font-size: 13.5px;
+	margin: 0 0 26px;
+	line-height: 1.6;
+}
+
+.watchspire-onboarding__progress {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 30px;
+}
+
+.watchspire-onboarding__progress span {
+	flex: 1;
+	height: 4px;
+	border-radius: 100px;
+	background: var(--c-slate-100);
+}
+
+.watchspire-onboarding__progress span.is-done,
+.watchspire-onboarding__progress span.is-active {
+	background: linear-gradient(90deg, var(--c-primary), var(--c-violet));
+}
+
+.watchspire-onboarding__steps {
+	display: flex;
+	gap: 18px;
+	margin-bottom: 28px;
+	list-style: none;
+	padding: 0;
+}
+
+.watchspire-onboarding__steps li {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--c-slate-300);
+}
+
+.watchspire-onboarding__step-num {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 23px;
+	height: 23px;
+	border-radius: 50%;
+	background: var(--c-slate-100);
+	color: var(--c-slate-400);
+	font-size: 11px;
+	flex-shrink: 0;
+}
+
+.watchspire-onboarding__steps li.is-active .watchspire-onboarding__step-num {
+	background: linear-gradient(135deg, var(--c-primary), var(--c-violet));
+	color: #fff;
+	box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+}
+
+.watchspire-onboarding__steps li.is-active {
+	color: var(--c-slate-800);
+}
+
+.watchspire-onboarding__steps li.is-done .watchspire-onboarding__step-num {
+	background: var(--c-green);
+	color: #fff;
+}
+
+.watchspire-onboarding fieldset {
+	border: none;
+	padding: 0;
+	margin: 0 0 24px;
+}
+
+.watchspire-onboarding p.watchspire-onboarding__question {
+	font-size: 14.5px;
+	font-weight: 700;
+	color: var(--c-slate-800);
+	margin: 0 0 14px;
+}
+
+.watchspire-onboarding input[type="email"],
+.watchspire-onboarding input[type="url"] {
+	width: 100%;
+	padding: 11px 14px;
+	font-size: 14px;
+	border-radius: var(--r-md);
+	border: 1.5px solid var(--c-slate-200);
+	background: var(--c-slate-50);
+}
+
+.watchspire-onboarding__monitor-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 11px 0;
+	border-top: 1px solid var(--c-slate-100);
+}
+
+.watchspire-onboarding__monitor-row:first-child {
+	border-top: none;
+}
+
+.watchspire-onboarding__actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 8px;
+}
+
+.watchspire-onboarding__actions .button-primary {
+	padding: 8px 24px;
+}
+
+.watchspire-onboarding__skip {
+	color: var(--c-slate-400);
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.watchspire-onboarding__skip:hover {
+	color: var(--c-slate-700);
+}
+
+/* -------------------------------------------------------------------------
+   Misc
+   ------------------------------------------------------------------------- */
+
+.watchspire-app .screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DASHBOARD — light "analytics" theme, matching the Admin UI
+   card style used by Settings/Change Log/Broken Links.
+   Self-contained component set (wpdash-* — deliberately not reusing
+   .watchspire-card/.watchspire-badge/etc.) so restyling one theme never
+   regresses the other.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.wpdash {
+	--d-bg:        transparent;
+	--d-surface:   #ffffff;
+	--d-surface-2: var(--c-slate-50);
+	--d-border:    var(--c-slate-200);
+	--d-border-strong: var(--c-slate-300);
+	--d-ink:       var(--c-slate-900);
+	--d-ink-soft:  var(--c-slate-700);
+	--d-muted:     var(--c-slate-500);
+	--d-muted-2:   var(--c-slate-400);
+	--d-green:     var(--c-green);
+	--d-amber:     var(--c-amber);
+	--d-red:       var(--c-red);
+	--d-blue:      var(--c-blue);
+	--d-cyan:      #06b6d4;
+	--d-violet:    var(--c-violet);
+	--d-indigo:    var(--c-primary);
+
+	background: var(--d-bg);
+	margin: 0 0 24px;
+	padding: 0;
+	color: var(--d-ink-soft);
+}
+
+.wpdash * {
+	box-sizing: border-box;
+}
+
+.wpdash h1,
+.wpdash h2,
+.wpdash h3,
+.wpdash h4 {
+	color: var(--d-ink);
+	font-family: var(--font);
+}
+
+/* ── Header toolbar ───────────────────────────────────────────────── */
+
+.wpdash-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 14px;
+	margin-bottom: 20px;
+}
+
+.wpdash-header-title {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex-wrap: wrap;
+}
+
+.wpdash-header-title h1,
+.wpdash-header-title h2 {
+	font-size: 26px !important;
+	font-weight: 800 !important;
+	margin: 0 !important;
+	letter-spacing: -0.01em !important;
+}
+
+.wpdash-status-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 5px 12px;
+	border-radius: 100px;
+	font-size: 12.5px;
+	font-weight: 650;
+	background: rgba(52, 211, 153, 0.12);
+	color: var(--d-green);
+}
+
+.wpdash-status-pill.is-warn { background: rgba(251, 191, 36, 0.12); color: var(--d-amber); }
+.wpdash-status-pill.is-fail { background: rgba(248, 113, 113, 0.12); color: var(--d-red); }
+
+.wpdash-status-pill .dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: currentColor;
+	position: relative;
+	flex-shrink: 0;
+}
+
+.wpdash-status-pill .dot::after {
+	content: "";
+	position: absolute;
+	inset: -3px;
+	border-radius: 50%;
+	border: 2px solid currentColor;
+	opacity: 0;
+	animation: watchspire-pulse 2.2s ease-out infinite;
+}
+
+.wpdash-header-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.wpdash-toolbtn,
+.wpdash select.wpdash-toolbtn {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	background: #fff;
+	border: 1px solid var(--c-slate-200);
+	color: #1e293b;
+	border-radius: var(--r-md);
+	padding: 9px 14px;
+	font-size: 12.5px;
+	font-weight: 650;
+	font-family: var(--font);
+	cursor: pointer;
+	text-decoration: none;
+	transition: all var(--t) var(--ease);
+	-webkit-appearance: none;
+	appearance: none;
+	box-shadow: var(--shadow-xs);
+}
+
+.wpdash-toolbtn .dashicons {
+	color: #64748b;
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+
+.wpdash-toolbtn:hover {
+	background: #f8fafc;
+	color: #0f172a;
+}
+
+.wpdash-toolbtn--primary {
+	background: linear-gradient(135deg, var(--c-primary), var(--c-violet));
+	border-color: transparent;
+	color: #fff;
+	box-shadow: 0 2px 10px rgba(79, 70, 229, 0.45);
+}
+
+.wpdash-toolbtn--primary .dashicons {
+	color: #fff;
+}
+
+/* Filters dropdown (native <details>/<summary>; JS only adds
+   click-outside-to-close on top of the native toggle) */
+
+.wpdash-filter {
+	position: relative;
+}
+
+/* .wpdash-toolbtn's inline-flex sits on the <details>, so it lays out
+   summary + panel — not the icon/label/caret inside the summary. Those
+   need their own flex row or the dashicons fall back to inline flow and
+   sit off the text's centre line. */
+.wpdash-filter > summary {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	list-style: none;
+	cursor: pointer;
+}
+
+.wpdash-filter > summary::-webkit-details-marker {
+	display: none;
+}
+
+/* Extra breathing room after the leading icon, without widening the
+   gap before the caret. */
+.wpdash-filter > summary > .dashicons:first-child {
+	margin-right: 3px;
+}
+
+.wpdash-toolbtn-caret {
+	font-size: 11px !important;
+	width: 11px !important;
+	height: 11px !important;
+	line-height: 1 !important;
+	transition: transform var(--t) var(--ease);
+}
+
+.wpdash-filter[open] > summary .wpdash-toolbtn-caret {
+	transform: rotate(180deg);
+}
+
+.wpdash-filter-panel {
+	position: absolute;
+	top: calc(100% + 6px);
+	right: 0;
+	z-index: 20;
+	background: #fff;
+	border-radius: var(--r-md);
+	box-shadow: var(--shadow-lg);
+	padding: 6px;
+	min-width: 160px;
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}
+
+.wpdash-filter-panel a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 8px 10px;
+	border-radius: var(--r-sm);
+	font-size: 12.5px;
+	font-weight: 600;
+	color: #334155;
+	text-decoration: none;
+}
+
+.wpdash-filter-panel a:hover {
+	background: #f1f5f9;
+}
+
+.wpdash-filter-panel a.is-active {
+	background: #eef2ff;
+	color: #4338ca;
+}
+
+.wpdash-toolbtn--primary:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 6px 18px rgba(79, 70, 229, 0.55);
+	color: #fff;
+}
+
+.wpdash-toolbtn--primary:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* Date-range dropdown: same wpdash-filter-panel component as "Filters",
+   widened for the preset links + the custom-range row underneath them. */
+
+.wpdash-filter-panel--range {
+	min-width: 230px;
+}
+
+
+/* Custom start/end date row, rendered in the same dropdown panel below
+   the preset ranges. */
+
+.wpdash-filter-daterange {
+	margin-top: 4px;
+	padding-top: 10px;
+	border-top: 1px solid var(--c-slate-100);
+}
+
+.wpdash-filter-daterange-label {
+	display: block;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--c-slate-400);
+	margin-bottom: 8px;
+}
+
+.wpdash-filter-daterange label {
+	display: block;
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--c-slate-500);
+	margin-bottom: 8px;
+}
+
+.wpdash-filter-daterange input[type="date"] {
+	display: block;
+	width: 100%;
+	margin-top: 4px;
+}
+
+.wpdash-filter-daterange .button {
+	width: 100%;
+	justify-content: center;
+	margin-top: 2px;
+}
+
+/* ── Active filter summary bar ────────────────────────────────────── */
+
+.wpdash-active-filters {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 14px;
+	padding: 10px 14px;
+	background: rgba(79, 70, 229, 0.05);
+	border: 1px solid rgba(79, 70, 229, 0.16);
+	border-radius: var(--r-lg);
+}
+
+.wpdash-active-filters-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--d-indigo, var(--c-primary));
+}
+
+.wpdash-active-filters-label .dashicons {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+
+.wpdash-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 4px 4px 10px;
+	background: #fff;
+	border: 1px solid var(--d-border, var(--c-slate-200));
+	border-radius: 100px;
+	font-size: 12px;
+	color: var(--d-muted, var(--c-slate-500));
+	box-shadow: var(--shadow-xs);
+}
+
+.wpdash-chip .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+	color: var(--d-muted-2, var(--c-slate-400));
+}
+
+.wpdash-chip-key::after {
+	content: ":";
+}
+
+.wpdash-chip strong {
+	color: var(--d-ink, var(--c-slate-900));
+	font-weight: 700;
+}
+
+.wpdash-chip-x {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	color: var(--d-muted-2, var(--c-slate-400));
+	text-decoration: none;
+	transition: all var(--t) var(--ease);
+}
+
+.wpdash-chip-x:hover,
+.wpdash-chip-x:focus {
+	background: rgba(239, 68, 68, 0.1);
+	color: var(--d-red, var(--c-red));
+}
+
+/* after .wpdash-chip .dashicons — equal specificity, so order decides */
+.wpdash-chip-x .dashicons {
+	font-size: 12px;
+	width: 12px;
+	height: 12px;
+	color: inherit;
+}
+
+.wpdash-active-filters-clear {
+	margin-left: auto;
+	font-size: 12px;
+	font-weight: 650;
+	color: var(--d-indigo, var(--c-primary));
+	text-decoration: none;
+}
+
+.wpdash-active-filters-clear:hover {
+	text-decoration: underline;
+}
+
+/* ── Generic dark card ────────────────────────────────────────────── */
+
+.wpdash-card {
+	display: flex;
+	flex-direction: column;
+	background: var(--d-surface);
+	border: 1px solid var(--d-border);
+	border-radius: var(--r-lg);
+	padding: 18px 20px;
+	box-shadow: var(--shadow-sm);
+}
+
+.wpdash-card-hdr {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 14px;
+}
+
+.wpdash-card-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--d-ink);
+	margin: 0;
+}
+
+.wpdash-card-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+
+.wpdash-card-icon .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+}
+
+.wpdash-card-icon.is-indigo { background: rgba(99, 102, 241, 0.12); color: #6366f1; }
+.wpdash-card-icon.is-blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+.wpdash-card-icon.is-violet { background: rgba(139, 92, 246, 0.12); color: #8b5cf6; }
+.wpdash-card-icon.is-red { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+.wpdash-card-icon.is-cyan { background: rgba(6, 182, 212, 0.12); color: #06b6d4; }
+.wpdash-card-icon.is-green { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+.wpdash-card-icon.is-pink { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+.wpdash-card-icon.is-purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.wpdash-card-icon.is-amber { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+
+.wpdash-card-hdr-meta {
+	font-size: 11px;
+	color: var(--d-muted-2);
+	font-weight: 600;
+}
+
+.wpdash-range-tag {
+	flex-shrink: 0;
+	background: var(--c-slate-50);
+	border: 1px solid var(--d-border);
+	border-radius: 100px;
+	padding: 4px 11px;
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--d-muted);
+}
+
+.wpdash-card-link {
+	font-size: 12px;
+	color: var(--d-indigo);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.wpdash-card-link:hover {
+	color: var(--d-blue);
+}
+
+/* ── Row 1: KPI stat cards ────────────────────────────────────────── */
+
+.wpdash-stats {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 14px;
+	margin-bottom: 14px;
+}
+
+@media (max-width: 1400px) {
+	.wpdash-stats { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 720px) {
+	.wpdash-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+.wpdash-stat {
+	display: flex;
+	flex-direction: column;
+	background: var(--d-surface);
+	border: 1px solid var(--d-border);
+	border-radius: var(--r-lg);
+	padding: 16px 16px 14px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
+}
+
+.wpdash-stat-top {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	margin-bottom: 12px;
+}
+
+.wpdash-stat-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 10px;
+	flex-shrink: 0;
+}
+
+.wpdash-stat-icon .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.wpdash-stat-icon.is-indigo { background: rgba(99, 102, 241, 0.12); color: #6366f1; }
+.wpdash-stat-icon.is-blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+.wpdash-stat-icon.is-violet { background: rgba(139, 92, 246, 0.12); color: #8b5cf6; }
+.wpdash-stat-icon.is-red { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+.wpdash-stat-icon.is-cyan { background: rgba(6, 182, 212, 0.12); color: #06b6d4; }
+.wpdash-stat-icon.is-green { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+.wpdash-stat-icon.is-pink { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+.wpdash-stat-icon.is-purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.wpdash-stat-icon.is-amber { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+
+/* Solid badge variant — reserved for the "status" metrics (monitors,
+   failures, uptime) so their icon reads as a health cue at a glance,
+   same treatment as the reference dashboard. */
+.wpdash-stat-icon--solid.is-green { background: #10b981; color: #fff; }
+.wpdash-stat-icon--solid.is-red { background: #ef4444; color: #fff; }
+.wpdash-stat-icon--solid.is-blue { background: #3b82f6; color: #fff; }
+
+.wpdash-stat-label {
+	font-size: 11.5px;
+	font-weight: 650;
+	color: var(--d-muted);
+}
+
+.wpdash-stat-body {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.wpdash-stat-value {
+	font-size: 27px;
+	font-weight: 800;
+	color: var(--d-ink);
+	line-height: 1;
+	letter-spacing: -0.02em;
+}
+
+.wpdash-stat-value small {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--d-muted);
+	margin-left: 2px;
+}
+
+/* Trend chart fills whatever room the row's tallest card (Health
+   Score) forces on the shorter cards — a bigger, live chart instead of
+   a dead gap is what makes the stretch read as intentional/premium
+   rather than an unfinished layout. */
+.wpdash-stat-spark-wrap {
+	flex: 1;
+	display: flex;
+	align-items: flex-end;
+	min-height: 22px;
+	margin: 8px 0 2px;
+}
+
+.wpdash-stat-spark-wrap .watchspire-sparkline {
+	display: block;
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+}
+
+.wpdash-stat-caption {
+	font-size: 11px;
+	color: var(--d-muted);
+	margin: 3px 0 0;
+}
+
+.wpdash-stat-sub {
+	font-size: 12.5px;
+	color: var(--d-muted-2);
+	margin-top: 7px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.wpdash-stat-sub .dashicons {
+	font-size: 12px;
+	width: 12px;
+	height: 12px;
+}
+
+.wpdash-stat-sub .dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+/* Sits right after the flex:1 spark chart, so this lands at the card's
+   bottom edge naturally — the chart above already consumes the extra
+   stretch height, this just adds the closing rule + delta line. */
+.wpdash-stat-spark-wrap + .wpdash-stat-sub {
+	margin-top: auto;
+	padding-top: 10px;
+	border-top: 1px solid var(--d-border);
+}
+
+.wpdash-stat-sub.is-good { color: var(--d-green); }
+.wpdash-stat-sub.is-bad { color: var(--d-red); }
+
+/* Health Score card: a distinct, hero-style widget rather than a
+   compact KPI tile, so it keeps its own roomier padding — matches the
+   reference mock instead of the tightened spacing on the other 5
+   stat cards. The other cards absorb whatever extra row height this
+   creates via their flex-filling trend chart (.wpdash-stat-spark-wrap),
+   so this can stay spacious without reopening the "empty card" issue. */
+.wpdash-stat--score .wpdash-stat-top {
+	margin-bottom: 10px;
+}
+
+/* the gauge stands in for stat-body/caption, so it gets the flexible
+   middle slot instead — keeps the ring centered and filling the row
+   height the other stat cards stretch to. */
+.wpdash-stat-gauge-wrap {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 0;
+}
+
+/* Arc stroke and score number are both left to gauge()'s health-ramp
+   color (green at 100 → red at 0): the stroke comes from the inline
+   stroke="" presentation attribute and the number from an inline
+   style="color:", so this block deliberately sets NO color on either —
+   any rule here would win over them and flatten the ramp.
+
+   The arc's open bottom leaves the lowest ~15% of the square SVG box
+   empty, so a negative bottom margin reclaims that dead strip — the
+   ring reads bigger without the card growing by the full difference. */
+.wpdash-stat-gauge-wrap .watchspire-gauge--lg .watchspire-gauge-svg {
+	width: min(120px, 100%);
+	height: auto;
+	aspect-ratio: 1 / 1;
+	margin-bottom: -10px;
+}
+
+.wpdash-stat-gauge-wrap .watchspire-gauge--lg .watchspire-gauge-track,
+.wpdash-stat-gauge-wrap .watchspire-gauge--lg .watchspire-gauge-fill {
+	stroke-width: 9;
+}
+
+/* Neutral track, so the unfilled remainder reads the same behind any
+   point on the green→red ramp. */
+.wpdash-stat-gauge-wrap .watchspire-gauge-track {
+	stroke: var(--c-slate-100);
+}
+
+.wpdash-stat-gauge-wrap .watchspire-gauge--lg .watchspire-gauge-num {
+	font-size: 25px;
+	text-align: center;
+}
+
+.wpdash-stat-gauge-wrap .watchspire-gauge-tier {
+	margin-top: 2px;
+	max-width: 76px;
+	font-size: 10.5px;
+	font-weight: 600;
+	text-transform: none;
+	letter-spacing: normal;
+	text-align: center;
+	line-height: 1.2;
+	color: var(--d-muted);
+}
+
+.wpdash-stat-gauge-wrap + .wpdash-stat-sub {
+	font-size: 12.5px;
+	font-weight: 650;
+	margin-top: 10px;
+}
+
+/* ── Row 2 & 3 grids ──────────────────────────────────────────────── */
+
+.wpdash-row2 {
+	display: grid;
+	grid-template-columns: 0.85fr 1.5fr 1fr;
+	gap: 14px;
+	margin-bottom: 14px;
+	align-items: stretch;
+}
+
+.wpdash-row3 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 14px;
+	margin-bottom: 14px;
+}
+
+@media (max-width: 1200px) {
+	.wpdash-row2 { grid-template-columns: 1fr 1fr; }
+	.wpdash-row3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+	.wpdash-row2,
+	.wpdash-row3 { grid-template-columns: 1fr; }
+}
+
+/* ── Donut chart ──────────────────────────────────────────────────── */
+
+.wpdash-donut-wrap {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 18px;
+}
+
+.wpdash-donut-svg {
+	flex-shrink: 0;
+	transform: rotate(-90deg);
+}
+
+.wpdash-donut-center-num {
+	font-size: 20px;
+	font-weight: 800;
+	fill: var(--d-ink);
+}
+
+.wpdash-donut-center-label {
+	font-size: 6.5px;
+	fill: var(--d-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.wpdash-donut-legend {
+	display: flex;
+	flex-direction: column;
+	gap: 9px;
+	flex: 1;
+	min-width: 0;
+}
+
+.wpdash-donut-legend-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	font-size: 12px;
+}
+
+.wpdash-donut-legend-row .dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 2px;
+	flex-shrink: 0;
+	margin-right: 6px;
+}
+
+.wpdash-donut-legend-name {
+	display: flex;
+	align-items: center;
+	color: var(--d-ink-soft);
+	font-weight: 600;
+}
+
+.wpdash-donut-legend-val {
+	color: var(--d-muted);
+	font-weight: 650;
+	white-space: nowrap;
+}
+
+/* Icon-badge legend variant (dashboard "Monitoring Overview"). Kept as a
+   modifier rather than restyling the base, so other donuts can keep
+   sharing these classes with the plain .dot markup. */
+.wpdash-donut-legend--icons {
+	gap: 15px;
+}
+
+.wpdash-donut-legend--icons .wpdash-donut-legend-row {
+	font-size: 12.5px;
+	gap: 10px;
+}
+
+.wpdash-donut-legend-badge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 6px;
+	flex-shrink: 0;
+	margin-right: 10px;
+	color: #fff;
+}
+
+.wpdash-donut-legend-badge .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+	line-height: 1;
+}
+
+.wpdash-donut-legend--icons .wpdash-donut-legend-name {
+	color: var(--d-ink);
+	font-weight: 650;
+}
+
+.wpdash-donut-legend--icons .wpdash-donut-legend-val {
+	color: var(--d-ink-soft);
+	font-weight: 700;
+}
+
+/* ── Area chart ───────────────────────────────────────────────────── */
+
+.wpdash-area-legend {
+	display: flex;
+	gap: 14px;
+	font-size: 11.5px;
+	color: var(--d-muted);
+}
+
+.wpdash-area-legend span {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.wpdash-area-legend .dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+}
+
+.wpdash-area-svg {
+	display: block;
+	width: 100%;
+	flex: 1;
+	min-height: 0;
+}
+
+.wpdash-area-axis text {
+	font-size: 9px;
+	fill: var(--d-muted-2);
+}
+
+/* ── Lists (Recent Failures / Top 404s / Change Log / Crawler Activity) ── */
+
+.wpdash-list {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.wpdash-list-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 10px 0;
+	border-top: 1px solid var(--d-border);
+}
+
+.wpdash-list-item:first-child {
+	border-top: none;
+	padding-top: 0;
+}
+
+.wpdash-list-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	flex-shrink: 0;
+	margin-top: 5px;
+}
+
+.wpdash-list-body {
+	flex: 1;
+	min-width: 0;
+}
+
+.wpdash-list-title {
+	font-size: 12.5px;
+	font-weight: 650;
+	color: var(--d-ink-soft);
+	margin: 0 0 2px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wpdash-list-desc {
+	font-size: 11px;
+	color: var(--d-muted-2);
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wpdash-list-meta {
+	font-size: 10.5px;
+	color: var(--d-muted-2);
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+/* Share-of-total suffix on a count (AI crawler per-bot breakdown). */
+.wpdash-list-meta-share {
+	color: var(--d-muted-3, var(--d-muted-2));
+	opacity: 0.75;
+	margin-left: 2px;
+}
+
+.wpdash-list-empty {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 16px 10px;
+	color: var(--d-muted-2);
+	font-size: 12.5px;
+}
+
+.wpdash-list-empty .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+	display: block;
+	margin: 0 auto 8px;
+	opacity: 0.5;
+}
+
+/* ── Submissions bar mini-chart ───────────────────────────────────── */
+
+.wpdash-kpi-row {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	margin-bottom: 4px;
+}
+
+.wpdash-kpi-num {
+	font-size: 26px;
+	font-weight: 800;
+	color: var(--d-ink);
+	letter-spacing: -0.02em;
+}
+
+.wpdash-kpi-caption {
+	font-size: 11px;
+	color: var(--d-muted-2);
+}
+
+.wpdash-kpi-breakdown {
+	display: flex;
+	gap: 12px;
+	margin-bottom: 12px;
+	font-size: 11px;
+	font-weight: 650;
+}
+
+.wpdash-kpi-breakdown span.is-green { color: var(--d-green); }
+.wpdash-kpi-breakdown span.is-red { color: var(--d-red); }
+.wpdash-kpi-breakdown span.is-amber { color: var(--d-amber); }
+
+.wpdash-mini-bars {
+	flex: 1;
+	display: flex;
+	align-items: flex-end;
+	gap: 4px;
+	min-height: 88px;
+}
+
+.wpdash-mini-bars .bar {
+	flex: 1;
+	border-radius: 3px 3px 0 0;
+	background: linear-gradient(180deg, var(--c-primary), var(--c-violet));
+	min-height: 3px;
+}
+
+/* ── Monitors status strip ───────────────────────────────────────── */
+
+.wpdash-monitors-title {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--d-ink);
+	margin: 0 0 12px;
+}
+
+/* flex, not grid: with a variable card count (6 built-in monitors plus
+   the optional crawler card and the trailing "add" card) a grid's
+   last row leaves unfilled empty tracks when the count doesn't divide
+   evenly. Flex-grow lets whatever ends up on the final row stretch to
+   fill it instead of leaving dead space on the right. */
+.wpdash-monitors-strip {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.wpdash-monitors-strip > * {
+	flex: 1 1 180px;
+	min-width: 180px;
+}
+
+.wpdash-mon-card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background: var(--d-surface);
+	border: 1px solid var(--d-border);
+	border-left: 3px solid var(--d-muted-2);
+	border-radius: var(--r-md);
+	padding: 13px 14px;
+	box-shadow: var(--shadow-xs);
+}
+
+.wpdash-mon-card.is-pass { border-left-color: var(--d-green); }
+.wpdash-mon-card.is-warn { border-left-color: var(--d-amber); }
+.wpdash-mon-card.is-fail { border-left-color: var(--d-red); }
+
+.wpdash-mon-head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 9px;
+}
+
+.wpdash-mon-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	flex-shrink: 0;
+	background: var(--c-slate-100);
+	color: var(--d-muted-2);
+}
+
+.wpdash-mon-icon .dashicons {
+	font-size: 12px;
+	width: 12px;
+	height: 12px;
+}
+
+.wpdash-mon-card.is-pass .wpdash-mon-icon { color: var(--d-green); }
+.wpdash-mon-card.is-warn .wpdash-mon-icon { color: var(--d-amber); }
+.wpdash-mon-card.is-fail .wpdash-mon-icon { color: var(--d-red); }
+
+.wpdash-mon-name {
+	font-size: 12px;
+	font-weight: 650;
+	color: var(--d-ink-soft);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wpdash-mon-status {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+
+.wpdash-mon-status .dashicons {
+	font-size: 12px;
+	width: 12px;
+	height: 12px;
+}
+
+.wpdash-mon-status.is-pass { color: var(--d-green); }
+.wpdash-mon-status.is-warn { color: var(--d-amber); }
+.wpdash-mon-status.is-fail { color: var(--d-red); }
+.wpdash-mon-status.is-unknown { color: var(--d-muted); }
+
+.wpdash-mon-detail {
+	font-size: 11px;
+	color: var(--d-muted);
+	margin: 0 0 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wpdash-mon-meta {
+	margin-top: auto;
+	padding-top: 5px;
+	font-size: 10.5px;
+	color: var(--d-muted-2);
+}
+
+.wpdash-mon-card--add {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 6px;
+	border: 1.5px dashed var(--d-border-strong);
+	border-left: 1.5px dashed var(--d-border-strong);
+	color: var(--d-muted);
+	text-decoration: none;
+	transition: all var(--t) var(--ease);
+}
+
+.wpdash-mon-card--add:hover {
+	border-color: var(--c-primary);
+	color: var(--d-ink-soft);
+}
+
+.wpdash-mon-card--add .dashicons {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+}
+
+.wpdash-mon-card--add span.label {
+	font-size: 12px;
+	font-weight: 650;
+}
+
+.wpdash-mon-card--add span.sub {
+	font-size: 10.5px;
+	color: var(--d-muted-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CHANGE LOG — stat cards, filter bar, type badges, pagination.
+   Shares the wpdash-stat / wpdash-card component set above (wraps its
+   content in .wpdash for the --d-* tokens); adds its own pieces below
+   for what's unique to a filterable, paginated log.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.wpdash-type-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 3px 10px;
+	border-radius: 100px;
+	font-size: 11.5px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.wpdash-type-badge .dashicons {
+	font-size: 12px;
+	width: 12px;
+	height: 12px;
+}
+
+.wpdash-type-badge.is-green { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+.wpdash-type-badge.is-blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+.wpdash-type-badge.is-amber { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+.wpdash-type-badge.is-red { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+.wpdash-type-badge.is-purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.wpdash-type-badge.is-cyan { background: rgba(6, 182, 212, 0.12); color: #06b6d4; }
+.wpdash-type-badge.is-slate { background: var(--c-slate-100); color: var(--c-slate-500); }
+
+/* Filter bar */
+
+.wpdash-filterbar {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: var(--r-lg);
+	box-shadow: var(--shadow-sm);
+	padding: 18px 20px;
+	margin-bottom: 20px;
+}
+
+.wpdash-filterbar-row {
+	display: flex;
+	align-items: flex-end;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.wpdash-filterbar-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	flex: 1 1 160px;
+	min-width: 150px;
+}
+
+.wpdash-filterbar-field > label {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--c-slate-400);
+}
+
+.wpdash-filterbar-field select {
+	width: 100%;
+}
+
+.wpdash-filterbar-daterange {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	border: 1.5px solid var(--c-slate-200);
+	border-radius: var(--r-sm);
+	background: var(--c-slate-50);
+	padding: 0 10px;
+}
+
+.wpdash-filterbar-daterange .dashicons {
+	color: var(--c-slate-400);
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	flex-shrink: 0;
+}
+
+.wpdash-filterbar-daterange input[type="date"] {
+	border: none !important;
+	background: transparent !important;
+	padding: 7px 0 !important;
+	flex: 1;
+	min-width: 0;
+}
+
+.wpdash-filterbar-daterange .sep {
+	color: var(--c-slate-300);
+	flex-shrink: 0;
+}
+
+.wpdash-filterbar-search {
+	flex: 1 1 220px;
+	position: relative;
+}
+
+.wpdash-filterbar-search input[type="search"] {
+	width: 100%;
+	padding-right: 34px !important;
+}
+
+.wpdash-filterbar-search .dashicons {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--c-slate-300);
+	pointer-events: none;
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+
+.wpdash-filterbar-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+/* "By" column: avatar + display name */
+
+.wpdash-by-user {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.wpdash-by-user img {
+	border-radius: 50%;
+	display: block;
+	flex-shrink: 0;
+}
+
+.wpdash-by-user--system {
+	color: var(--c-slate-300);
+}
+
+/* "Source" column */
+
+.wpdash-source {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	color: var(--c-slate-500);
+	font-size: 12.5px;
+}
+
+.wpdash-source .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	color: var(--c-slate-300);
+}
+
+/* Pagination */
+
+.wpdash-pagination {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-top: 16px;
+	font-size: 12.5px;
+	color: var(--c-slate-400);
+}
+
+.wpdash-pagination-links {
+	display: flex;
+	align-items: center;
+}
+
+.wpdash-pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 32px;
+	height: 32px;
+	padding: 0 8px;
+	border-radius: var(--r-sm);
+	border: 1px solid var(--c-slate-200);
+	background: var(--c-white);
+	color: var(--c-slate-600);
+	font-size: 12.5px;
+	font-weight: 600;
+	text-decoration: none;
+	margin: 0 2px;
+	transition: all var(--t) var(--ease);
+}
+
+.wpdash-pagination .page-numbers:hover {
+	border-color: var(--c-slate-300);
+	background: var(--c-slate-50);
+}
+
+.wpdash-pagination .page-numbers.current {
+	background: linear-gradient(135deg, var(--c-primary), var(--c-violet));
+	border-color: transparent;
+	color: #fff;
+}
+
+.wpdash-pagination .page-numbers.dots {
+	border: none;
+	background: transparent;
+}
+
+/* Broken Links & Images — screenshot-matched layout. */
+.watchspire-stats-row {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 14px;
+	margin: 0 0 18px;
+}
+
+.watchspire-stat-card {
+	background: var(--c-white);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	border-radius: 10px;
+	padding: 16px;
+	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.watchspire-stat-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.watchspire-stat-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.watchspire-stat-icon .dashicons { font-size: 20px; width: 20px; height: 20px; }
+
+.watchspire-stat-icon.is-indigo { background: rgba(99, 102, 241, 0.12); color: #6366f1; }
+.watchspire-stat-icon.is-red { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+.watchspire-stat-icon.is-amber { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+.watchspire-stat-icon.is-purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.watchspire-stat-icon.is-green { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+
+.watchspire-stat-main {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.watchspire-stat-value {
+	font-size: 22px;
+	font-weight: 800;
+	color: var(--c-slate-900);
+	line-height: 1.2;
+	letter-spacing: -0.01em;
+}
+
+.watchspire-stat-value--sm { font-size: 14px; }
+
+.watchspire-stat-label {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--c-slate-600);
+}
+
+.watchspire-stat-caption {
+	margin: 8px 0 0;
+	font-size: 11.5px;
+	color: var(--c-slate-400);
+}
+
+.watchspire-scan-controls {
+	padding: 16px 20px;
+	border-radius: 10px;
+}
+
+.watchspire-scan-controls-row { flex-wrap: nowrap; }
+
+.watchspire-gauge--md .watchspire-gauge-svg { width: 94px; height: 94px; }
+.watchspire-gauge--md .watchspire-gauge-num { font-size: 23px; }
+
+.watchspire-scan-status-block { gap: 4px; }
+
+.watchspire-scan-title {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 800;
+	color: var(--c-slate-900);
+}
+
+.watchspire-scan-subtitle {
+	margin: 0;
+	font-size: 12.5px;
+	color: var(--c-slate-500);
+}
+
+.watchspire-scan-actions--grid {
+	display: grid;
+	grid-template-columns: repeat(2, 145px);
+	gap: 8px;
+}
+
+.watchspire-scan-actions--grid .button { min-height: 40px; }
+.watchspire-scan-actions--grid #watchspire-scan-cancel { color: var(--c-red); border-color: #f87171; }
+
+.watchspire-scan-spinner {
+	display: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2.5px solid var(--c-slate-200);
+	border-top-color: var(--c-primary);
+	flex-shrink: 0;
+	margin: 0 4px;
+	animation: watchspire-spin 0.8s linear infinite;
+}
+
+.watchspire-scan-spinner.is-visible {
+	display: inline-block;
+}
+
+@keyframes watchspire-spin {
+	to { transform: rotate(360deg); }
+}
+
+.watchspire-scan-meta-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 12px;
+	font-size: 12px;
+	color: var(--c-slate-500);
+}
+
+.watchspire-scan-warning {
+	display: none;
+	align-items: center;
+	gap: 6px;
+	margin: 10px 0 0;
+	padding: 8px 12px;
+	border-radius: var(--r-sm);
+	background: #fffbeb;
+	color: #92610a;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.watchspire-scan-warning.is-visible {
+	display: flex;
+}
+
+.watchspire-scan-warning .dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	color: var(--c-amber);
+	flex-shrink: 0;
+}
+
+.watchspire-tabs {
+	background: var(--c-white);
+	border: 1px solid var(--c-slate-200);
+	border-bottom: 0;
+	border-radius: 10px 10px 0 0;
+	padding: 0 16px;
+	margin: 0;
+	min-height: 56px;
+	align-items: center;
+}
+
+.watchspire-tabs a { padding: 18px 2px 16px; margin-right: 24px; }
+
+.watchspire-quickfilters {
+	background: var(--c-white);
+	border: 1px solid var(--c-slate-200);
+	border-bottom: 0;
+	margin: 0;
+	padding: 14px 16px;
+}
+
+.watchspire-quickfilters form { flex-wrap: nowrap; }
+.watchspire-quickfilters select { min-width: 135px; background-color: var(--c-white); }
+
+.watchspire-table-wrap {
+	border-radius: 0;
+	box-shadow: none;
+	margin: 0;
+	border-color: var(--c-slate-200);
+}
+
+.watchspire-table-wrap table.watchspire-table thead th {
+	background: var(--c-white) !important;
+	font-size: 12px !important;
+	text-transform: none !important;
+	letter-spacing: 0 !important;
+	color: var(--c-slate-600) !important;
+	padding-top: 12px !important;
+	padding-bottom: 12px !important;
+}
+
+.watchspire-table-wrap table.watchspire-table tbody td { padding-top: 10px !important; padding-bottom: 10px !important; }
+.watchspire-table-wrap table.watchspire-table a:not(.watchspire-icon-btn) { color: #2563eb; text-decoration: none; }
+
+.watchspire-quickfilters + .watchspire-table-wrap + .wpdash-pagination,
+.wpdash-links .wpdash-pagination {
+	background: var(--c-white);
+	border: 1px solid var(--c-slate-200);
+	border-top: 0;
+	border-radius: 0 0 10px 10px;
+	padding: 16px;
+	margin: 0;
+}
+
+@media (max-width: 1200px) {
+	.watchspire-stats-row { grid-template-columns: repeat(3, 1fr); }
+	.watchspire-scan-controls-row { flex-wrap: wrap; }
+	.watchspire-quickfilters form { flex-wrap: wrap; }
+}
+
+@media (max-width: 720px) {
+	.watchspire-stats-row { grid-template-columns: 1fr; }
+	.watchspire-scan-actions--grid { width: 100%; grid-template-columns: 1fr 1fr; }
+}

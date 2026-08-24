@@ -1,0 +1,53 @@
+{
+    "name": "watchspire/watchspire",
+    "description": "Form, checkout & uptime monitor with failure alerts for WordPress.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=7.4",
+        "woocommerce/action-scheduler": "^4.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "WatchSpire\\": "includes/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "scripts": {
+        "dev": "composer install",
+        "lint": "phpcs",
+        "lint:summary": "phpcs --report=summary",
+        "lint:fix": "phpcbf",
+        "lint:security": "phpcs --report=full --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.NonceVerification,WordPress.Security.ValidatedSanitizedInput,WordPress.DB.PreparedSQL,WordPress.DB.PreparedSQLPlaceholders,WordPress.WP.GlobalVariablesOverride,WordPress.WP.I18n",
+        "build": "php bin/build.php",
+        "build:zip": "php bin/build.php --zip",
+        "verify": "php bin/verify-build.php",
+        "release": [
+            "@lint:security",
+            "@build:zip",
+            "@verify"
+        ]
+    },
+    "scripts-descriptions": {
+        "dev": "Install dev tooling (phpcs, WPCS, PHPCompatibility).",
+        "lint": "Run coding standards over the plugin.",
+        "lint:summary": "Coding-standards report grouped by file.",
+        "lint:fix": "Auto-fix what phpcbf can fix.",
+        "lint:security": "Only the sniffs WordPress.org rejects builds over.",
+        "build": "Package build/watchspire/ with a production-only vendor.",
+        "build:zip": "Build and also produce build/watchspire.zip.",
+        "verify": "Check the built package against WordPress.org's rules.",
+        "release": "Security lint, build the zip, then verify it. Gates on the security sniffs only — `lint` also reports docblock style, which does not block a WordPress.org submission."
+    }
+}

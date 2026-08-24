@@ -1,0 +1,42 @@
+/* ═══════════════════════════════════════════════════════════════════
+   WatchSpire — admin notices shown on other plugins' / core's screens.
+   Loaded only when a WatchSpire notice is actually on the page, and
+   deliberately kept separate from admin.css: that stylesheet is a whole
+   design system scoped to .watchspire-app, which does not exist here.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Core ships .notice with `padding: 1px 12px`, which is what holds the
+   text off the coloured left border. Only the vertical padding is
+   widened here — zeroing the horizontal value pins the text to the
+   border. */
+.watchspire-admin-notice {
+	background: #eef2ff;
+	border-left: 4px solid #4f46e5;
+	border-radius: 0 4px 4px 0;
+	padding: 8px 16px;
+}
+
+.watchspire-admin-notice p:first-child {
+	margin-bottom: 2px;
+}
+
+.watchspire-admin-notice .dashicons-star-filled {
+	color: #ffc107;
+	font-size: 17px;
+	width: 17px;
+	height: 17px;
+	vertical-align: text-bottom;
+}
+
+.watchspire-notice-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 12px 0 10px;
+}
+
+/* Core gives .notice p a 0.5em vertical margin; the button row supplies
+   its own spacing, so drop the inherited gap above it. */
+.watchspire-admin-notice .watchspire-notice-actions + p {
+	margin-top: 0;
+}

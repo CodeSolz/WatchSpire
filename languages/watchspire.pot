@@ -1,0 +1,1732 @@
+# Copyright (C) 2026 WatchSpire
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WatchSpire – Form, Email & Uptime Monitor with Failure Alerts 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/watchspire\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-24T21:44:26+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: watchspire\n"
+
+#. Plugin Name of the plugin
+#: watchspire.php
+msgid "WatchSpire – Form, Email & Uptime Monitor with Failure Alerts"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: watchspire.php
+msgid "https://codesolz.net/our-products/wordpress-plugin/watchspire"
+msgstr ""
+
+#. Description of the plugin
+#: watchspire.php
+msgid "Monitors contact form delivery, SSL certificate expiry, 404/500 errors, uptime, and broken links — alerts you by email when something silently breaks."
+msgstr ""
+
+#. Author of the plugin
+#: watchspire.php
+#: includes/Admin/AdminMenu.php:63
+#: includes/Admin/AdminMenu.php:64
+#: includes/Admin/AdminMenu.php:615
+#: includes/Admin/AdminMenu.php:670
+#: includes/Admin/Notices.php:195
+#: includes/Admin/Onboarding.php:74
+#: includes/Admin/Views/dashboard.php:245
+msgid "WatchSpire"
+msgstr ""
+
+#. Author URI of the plugin
+#: watchspire.php
+msgid "https://codesolz.net"
+msgstr ""
+
+#: includes/Activator.php:21
+msgid "WatchSpire requires PHP 7.4 or higher."
+msgstr ""
+
+#: includes/Activator.php:22
+msgid "Plugin activation error"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:72
+#: includes/Admin/PluginLinks.php:43
+#: includes/Admin/Views/changelog.php:266
+msgid "Dashboard"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:73
+#: includes/Admin/Views/changelog.php:116
+#: includes/Admin/Views/dashboard.php:687
+msgid "Change Log"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:74
+#: includes/Admin/Views/links.php:79
+msgid "Broken Links & Images"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:74
+#: includes/Admin/Views/links.php:131
+#: includes/Admin/Views/links.php:264
+msgid "Broken Links"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:75
+#: includes/Admin/PluginLinks.php:49
+#: includes/Admin/Settings.php:212
+#: includes/Admin/Views/links.php:76
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:85
+#: includes/Admin/AdminMenu.php:86
+#: includes/Admin/PluginLinks.php:36
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:128
+msgid "Upgrade to WatchSpire Pro (opens in a new tab)"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:179
+msgid "Cancel the current scan? Progress will be lost."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:180
+msgid "Running…"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:181
+#: includes/Admin/Views/links.php:45
+msgid "Ready to scan"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:182
+#: includes/Admin/Views/links.php:46
+#: includes/Admin/Views/links.php:47
+msgid "Scanning in progress…"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:183
+#: includes/Admin/Views/links.php:48
+msgid "Scan paused"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:184
+#: includes/Admin/Views/links.php:49
+msgid "Scan completed"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:185
+#: includes/Admin/Views/links.php:32
+msgid "Scanning content…"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:186
+#: includes/Admin/Views/links.php:33
+msgid "Checking links…"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:187
+#: includes/Admin/Views/links.php:56
+msgid "Resume anytime — progress is saved."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:188
+#: includes/Admin/Views/links.php:64
+msgid "Run a scan to check your links and images."
+msgstr ""
+
+#. translators: %d: number of broken links/images found
+#: includes/Admin/AdminMenu.php:190
+#: includes/Admin/Views/links.php:60
+msgid "%d broken link or image found."
+msgid_plural "%d broken links or images found."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of broken links/images found
+#: includes/Admin/AdminMenu.php:192
+msgid "%d broken links or images found."
+msgstr ""
+
+#. translators: 1: checked count, 2: total count
+#. translators: 1: number of URLs already checked, 2: total number of URLs to check
+#: includes/Admin/AdminMenu.php:194
+#: includes/Admin/Views/links.php:234
+msgid "Scanned %1$s of %2$s URLs"
+msgstr ""
+
+#. translators: %s: elapsed time as HH:MM:SS
+#. translators: %s: elapsed time, e.g. "1m 20s"
+#: includes/Admin/AdminMenu.php:196
+#: includes/Admin/Views/links.php:244
+msgid "Elapsed: %s"
+msgstr ""
+
+#. translators: 1: range start date, 2: range end date
+#: includes/Admin/AdminMenu.php:245
+msgid "%1$s – %2$s"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:373
+msgid "WatchSpire Dashboard"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:382
+#: includes/Admin/AdminMenu.php:499
+#: includes/Admin/AdminMenu.php:714
+#: includes/Admin/AdminMenu.php:741
+#: includes/Admin/AdminMenu.php:778
+#: includes/Admin/AdminMenu.php:800
+#: includes/Admin/Onboarding.php:151
+#: includes/Admin/Onboarding.php:200
+#: includes/Admin/Settings.php:623
+#: includes/Admin/Settings.php:649
+msgid "Insufficient permissions."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:388
+#: includes/Admin/AdminMenu.php:729
+msgid "Runner unavailable."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:489
+msgid "WatchSpire Change Log"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:582
+msgid "WatchSpire Broken Links & Images"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:594
+msgid "WatchSpire Settings"
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:723
+msgid "Unknown monitor."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:761
+#: includes/Admin/AdminMenu.php:822
+msgid "Unknown action."
+msgstr ""
+
+#: includes/Admin/AdminMenu.php:808
+msgid "Missing row id."
+msgstr ""
+
+#: includes/Admin/Charts.php:60
+msgid "Trend chart"
+msgstr ""
+
+#: includes/Admin/Charts.php:77
+#: includes/Admin/Charts.php:418
+msgid "No data yet."
+msgstr ""
+
+#: includes/Admin/Charts.php:226
+msgid "Bar chart"
+msgstr ""
+
+#: includes/Admin/Charts.php:240
+msgid "Pass"
+msgstr ""
+
+#: includes/Admin/Charts.php:245
+msgid "Warning"
+msgstr ""
+
+#: includes/Admin/Charts.php:250
+#: includes/Admin/Views/dashboard.php:540
+msgid "Failing"
+msgstr ""
+
+#: includes/Admin/Charts.php:257
+msgid "Unknown"
+msgstr ""
+
+#: includes/Admin/Charts.php:298
+#: includes/Admin/Views/dashboard.php:67
+#: includes/Admin/Views/dashboard.php:83
+msgid "Excellent"
+msgstr ""
+
+#: includes/Admin/Charts.php:301
+#: includes/Admin/Views/dashboard.php:70
+#: includes/Admin/Views/dashboard.php:86
+msgid "Good"
+msgstr ""
+
+#: includes/Admin/Charts.php:304
+#: includes/Admin/Views/dashboard.php:156
+msgid "Needs attention"
+msgstr ""
+
+#: includes/Admin/Charts.php:307
+msgid "Critical"
+msgstr ""
+
+#. translators: %d: score out of 100
+#: includes/Admin/Charts.php:328
+msgid "Health score: %d out of 100"
+msgstr ""
+
+#. translators: %d: score out of 100
+#: includes/Admin/Charts.php:328
+msgid "Health score not yet available"
+msgstr ""
+
+#: includes/Admin/Charts.php:399
+msgid "Monitoring overview"
+msgstr ""
+
+#: includes/Admin/Charts.php:521
+msgid "Checks over time"
+msgstr ""
+
+#. translators: 1: opening link tag to the WatchSpire dashboard, 2: closing link tag
+#: includes/Admin/Notices.php:109
+msgid "Thank you for choosing us. WatchSpire is watching your site now — %1$stake a look at what it found%2$s."
+msgstr ""
+
+#. translators: 1: opening bold tag, 2: closing bold tag, 3: opening link tag to the review form, 4: closing link tag, 5: five star icons
+#: includes/Admin/Notices.php:121
+msgid "You are using WatchSpire quite a while! If you are enjoying it, %3$splease consider giving us a 5-star (%5$s) rating.%4$s %1$sYour valuable review%2$s will %1$sinspire us%2$s to make it even better."
+msgstr ""
+
+#: includes/Admin/Notices.php:158
+msgid "Let's do it now!"
+msgstr ""
+
+#: includes/Admin/Notices.php:159
+msgid "I've already done it!"
+msgstr ""
+
+#: includes/Admin/Notices.php:160
+msgid "I'll do it later!"
+msgstr ""
+
+#: includes/Admin/Notices.php:161
+msgid "Please don't bother me again :("
+msgstr ""
+
+#: includes/Admin/Onboarding.php:25
+#: includes/Admin/Onboarding.php:69
+msgid "WatchSpire Setup"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:62
+#: includes/Admin/Onboarding.php:103
+msgid "Alert email"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:63
+#: includes/Admin/Settings.php:179
+#: includes/Admin/Settings.php:504
+#: includes/Admin/Views/dashboard.php:555
+msgid "Monitors"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:64
+msgid "Link scanning"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:77
+msgid "Welcome to WatchSpire"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:78
+msgid "Three quick steps and you will be watching for the failures that do not show up as \"the site is down.\""
+msgstr ""
+
+#: includes/Admin/Onboarding.php:102
+msgid "Where should WatchSpire send you alerts when something breaks?"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:106
+msgid "Choose which checks to run. You can change these anytime in Settings."
+msgstr ""
+
+#: includes/Admin/Onboarding.php:123
+msgid "Broken link & image scanning is optional and off by default — it scans your content in the background, in small batches, and never blocks your site."
+msgstr ""
+
+#: includes/Admin/Onboarding.php:129
+msgid "Enable link scanning now"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:135
+msgid "Skip setup"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:137
+msgid "Finish setup"
+msgstr ""
+
+#: includes/Admin/Onboarding.php:137
+msgid "Next →"
+msgstr ""
+
+#: includes/Admin/PluginLinks.php:35
+msgid "Upgrade to WatchSpire Pro"
+msgstr ""
+
+#: includes/Admin/PluginLinks.php:70
+msgid "Support"
+msgstr ""
+
+#: includes/Admin/PluginLinks.php:76
+msgid "Rate WatchSpire"
+msgstr ""
+
+#: includes/Admin/Settings.php:64
+msgid "Alert email was not saved: not a valid email address."
+msgstr ""
+
+#: includes/Admin/Settings.php:74
+msgid "Mail test address was not saved: not a valid email address."
+msgstr ""
+
+#: includes/Admin/Settings.php:178
+#: includes/Admin/Settings.php:593
+msgid "General"
+msgstr ""
+
+#: includes/Admin/Settings.php:180
+#: includes/Admin/Settings.php:536
+msgid "Alerts"
+msgstr ""
+
+#: includes/Admin/Settings.php:181
+#: includes/Admin/Settings.php:560
+msgid "Scanning"
+msgstr ""
+
+#: includes/Admin/Settings.php:182
+#: includes/Admin/Settings.php:587
+msgid "Data & Privacy"
+msgstr ""
+
+#: includes/Admin/Settings.php:209
+msgid "Save Changes"
+msgstr ""
+
+#: includes/Admin/Settings.php:212
+msgid "Configure what WatchSpire watches and how it reaches you."
+msgstr ""
+
+#: includes/Admin/Settings.php:347
+msgid "5 minutes"
+msgstr ""
+
+#: includes/Admin/Settings.php:348
+msgid "15 minutes"
+msgstr ""
+
+#: includes/Admin/Settings.php:349
+msgid "30 minutes"
+msgstr ""
+
+#: includes/Admin/Settings.php:350
+msgid "1 hour"
+msgstr ""
+
+#: includes/Admin/Settings.php:358
+msgid "General Settings"
+msgstr ""
+
+#: includes/Admin/Settings.php:361
+msgid "Alert Email"
+msgstr ""
+
+#: includes/Admin/Settings.php:361
+#: includes/Admin/Settings.php:363
+msgid "Email address to receive immediate alerts."
+msgstr ""
+
+#: includes/Admin/Settings.php:367
+msgid "Key Page to Monitor"
+msgstr ""
+
+#: includes/Admin/Settings.php:367
+#: includes/Admin/Settings.php:369
+msgid "The primary page WatchSpire will monitor for uptime and performance."
+msgstr ""
+
+#: includes/Admin/Settings.php:373
+msgid "Weekly Summary Email"
+msgstr ""
+
+#: includes/Admin/Settings.php:373
+#: includes/Admin/Settings.php:382
+msgid "Enable weekly summary reports."
+msgstr ""
+
+#: includes/Admin/Settings.php:386
+msgid "Monitor Intervals"
+msgstr ""
+
+#: includes/Admin/Settings.php:386
+#: includes/Admin/Settings.php:392
+msgid "How often WatchSpire checks your site."
+msgstr ""
+
+#: includes/Admin/Settings.php:396
+msgid "Auto-resolve Recovery"
+msgstr ""
+
+#: includes/Admin/Settings.php:396
+#: includes/Admin/Settings.php:405
+msgid "Prevents alert flapping when issues are intermittent."
+msgstr ""
+
+#: includes/Admin/Settings.php:398
+msgid "Automatically resolve an alert after"
+msgstr ""
+
+#: includes/Admin/Settings.php:401
+msgid "consecutive"
+msgstr ""
+
+#: includes/Admin/Settings.php:403
+msgid "successful checks"
+msgstr ""
+
+#: includes/Admin/Settings.php:412
+msgid "Data Retention"
+msgstr ""
+
+#: includes/Admin/Settings.php:414
+msgid "Retain Monitor Data"
+msgstr ""
+
+#: includes/Admin/Settings.php:414
+#: includes/Admin/Settings.php:425
+msgid "Performance, uptime and alert data."
+msgstr ""
+
+#. translators: %d: number of days
+#: includes/Admin/Settings.php:420
+#: includes/Admin/Settings.php:434
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/Settings.php:428
+msgid "Retain Alert Logs"
+msgstr ""
+
+#: includes/Admin/Settings.php:428
+#: includes/Admin/Settings.php:439
+msgid "Detailed alert history and notifications."
+msgstr ""
+
+#: includes/Admin/Settings.php:443
+#: includes/Admin/Settings.php:447
+msgid "Export Data"
+msgstr ""
+
+#: includes/Admin/Settings.php:444
+msgid "Download your WatchSpire data for backup or analysis. Exports include monitors, alerts, uptime logs, and settings."
+msgstr ""
+
+#: includes/Admin/Settings.php:451
+msgid "Link Scanning"
+msgstr ""
+
+#: includes/Admin/Settings.php:452
+msgid "Enable link scanning"
+msgstr ""
+
+#: includes/Admin/Settings.php:454
+msgid "Broken Link Alert Threshold"
+msgstr ""
+
+#: includes/Admin/Settings.php:456
+msgid "Alert me when broken links exceed this number."
+msgstr ""
+
+#: includes/Admin/Settings.php:467
+msgid "Privacy & Data"
+msgstr ""
+
+#: includes/Admin/Settings.php:471
+msgid "What WatchSpire Stores on Your Site"
+msgstr ""
+
+#: includes/Admin/Settings.php:473
+msgid "Monitor settings, schedules, and preferences"
+msgstr ""
+
+#: includes/Admin/Settings.php:474
+msgid "Uptime checks, response times, and performance data"
+msgstr ""
+
+#: includes/Admin/Settings.php:475
+msgid "Alert logs, email history, and notification status"
+msgstr ""
+
+#: includes/Admin/Settings.php:476
+msgid "All data is stored securely in your WordPress database."
+msgstr ""
+
+#: includes/Admin/Settings.php:480
+msgid "What Leaves Your Site"
+msgstr ""
+
+#: includes/Admin/Settings.php:482
+msgid "Alert notifications (delivered via email, when enabled)"
+msgstr ""
+
+#: includes/Admin/Settings.php:483
+msgid "Requests to your own site (uptime self-checks and robots.txt)"
+msgstr ""
+
+#: includes/Admin/Settings.php:484
+msgid "No content, user data, or passwords are transmitted"
+msgstr ""
+
+#: includes/Admin/Settings.php:488
+msgid "Learn more about our privacy practices"
+msgstr ""
+
+#: includes/Admin/Settings.php:520
+msgid "404 alert threshold"
+msgstr ""
+
+#: includes/Admin/Settings.php:523
+msgid "Alert when a single URL gets this many 404 hits within 24 hours."
+msgstr ""
+
+#: includes/Admin/Settings.php:540
+msgid "Repeat-alert window"
+msgstr ""
+
+#: includes/Admin/Settings.php:543
+msgid "hours"
+msgstr ""
+
+#: includes/Admin/Settings.php:544
+msgid "The same failure won't alert again within this window. Set to 0 to alert every time."
+msgstr ""
+
+#: includes/Admin/Settings.php:563
+msgid "Broken link & image scanning"
+msgstr ""
+
+#: includes/Admin/Settings.php:563
+msgid "Off by default. Scans run in small batches in the background and never block your site — recommended to leave off on very large sites with limited hosting resources."
+msgstr ""
+
+#: includes/Admin/Settings.php:567
+msgid "Batch size"
+msgstr ""
+
+#: includes/Admin/Settings.php:570
+msgid "URLs checked per batch (max 20). Automatically halved on hosts with low memory or execution-time limits."
+msgstr ""
+
+#. translators: %s: link to the General settings tab
+#: includes/Admin/Settings.php:592
+msgid "Data retention is set from the %s tab."
+msgstr ""
+
+#: includes/Admin/Settings.php:598
+msgid "What leaves this site"
+msgstr ""
+
+#: includes/Admin/Settings.php:601
+msgid "WatchSpire stores everything on your own server and does not contact any third-party service. Its checks request your own site (uptime self-checks and robots.txt), and — only if you turn on broken link scanning — the URLs your own content already links to. No usage tracking, no analytics, no phoning home."
+msgstr ""
+
+#: includes/Admin/Settings.php:603
+msgid "WatchSpire never stores form field contents or customer personal data — only outcomes (delivered / failed) and metadata."
+msgstr ""
+
+#: includes/Admin/Settings.php:606
+msgid "Export & purge"
+msgstr ""
+
+#: includes/Admin/Settings.php:610
+msgid "Export all WatchSpire data (JSON)"
+msgstr ""
+
+#: includes/Admin/Settings.php:613
+msgid "Permanently delete all WatchSpire data on this site? This cannot be undone."
+msgstr ""
+
+#: includes/Admin/Settings.php:616
+msgid "Purge all WatchSpire data"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:27
+msgid "Plugin Updated"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:32
+msgid "Plugin Installed"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:37
+msgid "Plugin Activated"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:42
+msgid "Plugin Deactivated"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:47
+msgid "Plugin Deleted"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:52
+msgid "Theme Updated"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:57
+msgid "Theme Installed"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:62
+msgid "Theme Switched"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:67
+msgid "Core Updated"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:72
+msgid "Settings Changed"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:77
+msgid "User Login"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:82
+msgid "User Logout"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:88
+#: includes/Admin/Views/links.php:290
+msgid "All Types"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:113
+msgid "Export Log"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:116
+msgid "Everything WatchSpire has seen change on this site — the foundation for spotting what broke something."
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:124
+msgid "Total Events"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:129
+msgid "All recorded events"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:135
+msgid "Plugin Events"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:140
+msgid "Plugin related changes"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:146
+msgid "Theme Events"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:151
+msgid "Theme related changes"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:157
+msgid "Core Events"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:162
+msgid "WordPress core changes"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:168
+msgid "User Events"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:173
+msgid "User related activities"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:182
+#: includes/Admin/Views/changelog.php:241
+#: includes/Admin/Views/links.php:365
+msgid "Type"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:191
+msgid "Date Range"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:194
+#: includes/Admin/Views/dashboard.php:300
+msgid "From"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:197
+#: includes/Admin/Views/dashboard.php:304
+msgid "To"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:203
+msgid "User"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:205
+msgid "All Users"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:213
+msgid "Search changes"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:214
+msgid "Search changes…"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:221
+msgid "Reset Filters"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:224
+msgid "Apply Filters"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:234
+msgid "No changes recorded for this filter."
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:240
+msgid "Time"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:242
+msgid "Item"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:243
+msgid "Change"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:244
+msgid "By"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:245
+msgid "Source"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:260
+msgid "Login"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:263
+msgid "WP-Cron"
+msgstr ""
+
+#: includes/Admin/Views/changelog.php:286
+msgid "auto"
+msgstr ""
+
+#. translators: 1: first row number on this page, 2: last row number on this page, 3: total matching rows
+#: includes/Admin/Views/changelog.php:320
+msgid "Showing %1$s to %2$s of %3$s changes"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:64
+#: includes/Admin/Views/dashboard.php:80
+msgid "—"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:73
+#: includes/Admin/Views/dashboard.php:89
+msgid "Fair"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:75
+msgid "Slow"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:91
+msgid "Poor"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:155
+msgid "All systems operational"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:157
+msgid "Issue detected"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:163
+msgid "Last 7 days"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:164
+msgid "Last 30 days"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:165
+msgid "Last 90 days"
+msgstr ""
+
+#. translators: %d: number of days
+#: includes/Admin/Views/dashboard.php:170
+msgid "Last %d days"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:181
+msgid "All statuses"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:182
+msgid "Passing only"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:183
+msgid "Warning only"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:184
+msgid "Failing only"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:229
+#: includes/Admin/Views/dashboard.php:427
+msgid "No prior period data"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:236
+#: includes/Admin/Views/dashboard.php:424
+msgid "from last period"
+msgstr ""
+
+#. translators: %d: number of days
+#: includes/Admin/Views/dashboard.php:262
+msgid "Last %d day"
+msgid_plural "Last %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/Views/dashboard.php:292
+msgid "Custom range"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:307
+msgid "Apply range"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:317
+msgid "Filters"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:334
+msgid "Run all checks now"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:351
+msgid "Date range"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:360
+#: includes/Admin/Views/links.php:366
+msgid "Status"
+msgstr ""
+
+#. translators: %d: number of active filters
+#: includes/Admin/Views/dashboard.php:375
+msgid "%d filter applied"
+msgid_plural "%d filters applied"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: filter name, e.g. "Date range"
+#: includes/Admin/Views/dashboard.php:393
+msgid "Clear %s filter"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:404
+msgid "Clear all"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:416
+msgid "Health Score"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:434
+msgid "Active Monitors"
+msgstr ""
+
+#. translators: %d: total monitor count
+#: includes/Admin/Views/dashboard.php:437
+msgid "of %d"
+msgstr ""
+
+#. translators: 1: passing count, 2: issue count
+#: includes/Admin/Views/dashboard.php:447
+msgid "%1$d passing · %2$d issue(s)"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:458
+msgid "Total Checks"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:473
+#: includes/Admin/Views/dashboard.php:577
+#: includes/Admin/Views/dashboard.php:596
+msgid "Failures"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:488
+msgid "Avg Response Time"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:503
+msgid "Uptime (Self-check)"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:519
+msgid "Monitoring Overview"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:528
+msgid "Passing"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:534
+#: includes/Admin/Views/dashboard.php:576
+#: includes/Admin/Views/dashboard.php:592
+msgid "Warnings"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:546
+#: includes/Admin/Views/links.php:34
+msgid "Paused"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:568
+msgid "View all monitors →"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:573
+msgid "Checks Over Time"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:575
+#: includes/Admin/Views/dashboard.php:588
+msgid "Passed"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:608
+msgid "Recent Failures"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:614
+msgid "No failures recorded."
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:624
+#: includes/Admin/Views/dashboard.php:703
+#: includes/Admin/Views/links.php:425
+msgid "ago"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:635
+msgid "Submissions"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:639
+msgid "total submissions"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:643
+msgid "Delivered"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:644
+msgid "Failed"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:650
+msgid "No form submissions recorded yet."
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:664
+msgid "Top 404s"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:670
+msgid "No 404s recorded."
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:687
+msgid "Recent"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:693
+msgid "No changes recorded yet."
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:708
+msgid "View full change log →"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:713
+#: includes/Admin/Views/dashboard.php:821
+msgid "AI Crawler Activity"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:713
+msgid "Today"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:721
+msgid "No AI crawler hits recorded yet."
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:726
+msgid "total hits"
+msgstr ""
+
+#. translators: 1: 2xx response count, 2: 4xx response count, 3: 5xx response count
+#: includes/Admin/Views/dashboard.php:756
+msgid "%1$s OK · %2$s client errors · %3$s server errors"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:777
+msgid "Monitors Status"
+msgstr ""
+
+#. translators: %s: human time diff
+#: includes/Admin/Views/dashboard.php:806
+msgid "Checked %s ago"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:810
+msgid "Not checked yet"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:823
+msgid "Info"
+msgstr ""
+
+#. translators: %s: hit count
+#: includes/Admin/Views/dashboard.php:828
+msgid "%s hits today"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:833
+msgid "Normal activity"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:839
+msgid "Manage monitors"
+msgstr ""
+
+#: includes/Admin/Views/dashboard.php:840
+msgid "Enable, disable, tune"
+msgstr ""
+
+#: includes/Admin/Views/links.php:31
+msgid "Idle"
+msgstr ""
+
+#: includes/Admin/Views/links.php:35
+msgid "Completed"
+msgstr ""
+
+#: includes/Admin/Views/links.php:74
+msgid "Schedule scans"
+msgstr ""
+
+#: includes/Admin/Views/links.php:85
+msgid "Link scanning is off by default because it can be resource-intensive on large sites."
+msgstr ""
+
+#: includes/Admin/Views/links.php:86
+msgid "Enable it in Settings →"
+msgstr ""
+
+#: includes/Admin/Views/links.php:105
+msgid "No change"
+msgstr ""
+
+#: includes/Admin/Views/links.php:107
+msgid "since last scan"
+msgstr ""
+
+#: includes/Admin/Views/links.php:120
+msgid "Total Scanned"
+msgstr ""
+
+#: includes/Admin/Views/links.php:142
+#: includes/Admin/Views/links.php:265
+msgid "Broken Images"
+msgstr ""
+
+#: includes/Admin/Views/links.php:153
+#: includes/Admin/Views/links.php:266
+msgid "Ignored"
+msgstr ""
+
+#: includes/Admin/Views/links.php:164
+msgid "Never"
+msgstr ""
+
+#: includes/Admin/Views/links.php:166
+msgid "Last Scan"
+msgstr ""
+
+#. translators: %s: human-readable time difference, e.g. "25 minutes"
+#: includes/Admin/Views/links.php:174
+msgid "%s ago"
+msgstr ""
+
+#: includes/Admin/Views/links.php:211
+msgid "Scan now"
+msgstr ""
+
+#: includes/Admin/Views/links.php:214
+msgid "Pause"
+msgstr ""
+
+#: includes/Admin/Views/links.php:217
+msgid "Resume"
+msgstr ""
+
+#: includes/Admin/Views/links.php:220
+msgid "Cancel"
+msgstr ""
+
+#: includes/Admin/Views/links.php:253
+msgid "Please don't refresh or close this tab while the scan is running."
+msgstr ""
+
+#: includes/Admin/Views/links.php:263
+msgid "All"
+msgstr ""
+
+#: includes/Admin/Views/links.php:291
+msgid "Links"
+msgstr ""
+
+#: includes/Admin/Views/links.php:292
+msgid "Images"
+msgstr ""
+
+#: includes/Admin/Views/links.php:296
+msgid "All Sources"
+msgstr ""
+
+#: includes/Admin/Views/links.php:300
+#: includes/Monitors/LinkScan/LinkExtractor.php:53
+msgid "Navigation menu"
+msgstr ""
+
+#: includes/Admin/Views/links.php:311
+msgid "All Statuses"
+msgstr ""
+
+#: includes/Admin/Views/links.php:319
+#: includes/Admin/Views/links.php:375
+msgid "Timeout"
+msgstr ""
+
+#: includes/Admin/Views/links.php:320
+#: includes/Admin/Views/links.php:376
+msgid "SSL Error"
+msgstr ""
+
+#: includes/Admin/Views/links.php:321
+#: includes/Admin/Views/links.php:377
+msgid "DNS Error"
+msgstr ""
+
+#: includes/Admin/Views/links.php:322
+#: includes/Admin/Views/links.php:378
+#: includes/Admin/Views/links.php:406
+msgid "Unreachable"
+msgstr ""
+
+#: includes/Admin/Views/links.php:331
+msgid "All Posts & Pages"
+msgstr ""
+
+#: includes/Admin/Views/links.php:341
+msgid "Clear filters"
+msgstr ""
+
+#: includes/Admin/Views/links.php:345
+msgid "Search URLs"
+msgstr ""
+
+#: includes/Admin/Views/links.php:346
+msgid "Search URLs…"
+msgstr ""
+
+#: includes/Admin/Views/links.php:347
+msgid "Search"
+msgstr ""
+
+#: includes/Admin/Views/links.php:358
+msgid "Nothing here — either nothing matches these filters, or a scan hasn't completed yet."
+msgstr ""
+
+#: includes/Admin/Views/links.php:364
+msgid "URL"
+msgstr ""
+
+#: includes/Admin/Views/links.php:367
+msgid "Found On"
+msgstr ""
+
+#: includes/Admin/Views/links.php:368
+msgid "Last Checked"
+msgstr ""
+
+#: includes/Admin/Views/links.php:369
+msgid "Actions"
+msgstr ""
+
+#: includes/Admin/Views/links.php:388
+#: includes/Monitors/Checks/UptimeMonitor.php:161
+msgid "OK"
+msgstr ""
+
+#: includes/Admin/Views/links.php:391
+msgid "Redirect"
+msgstr ""
+
+#: includes/Admin/Views/links.php:428
+msgid "Recheck"
+msgstr ""
+
+#: includes/Admin/Views/links.php:432
+msgid "Unignore"
+msgstr ""
+
+#: includes/Admin/Views/links.php:436
+msgid "Ignore"
+msgstr ""
+
+#: includes/Admin/Views/links.php:441
+msgid "Edit source"
+msgstr ""
+
+#: includes/Admin/Views/links.php:445
+msgid "Open URL"
+msgstr ""
+
+#. translators: 1: first row number on this page, 2: last row number on this page, 3: total matching rows
+#: includes/Admin/Views/links.php:465
+msgid "Showing %1$s to %2$s of %3$s results"
+msgstr ""
+
+#. translators: %s: monitor label
+#: includes/Alerts/AlertManager.php:65
+msgid "%s check failed"
+msgstr ""
+
+#. translators: %s: monitor label
+#: includes/Alerts/AlertManager.php:80
+msgid "%s has recovered"
+msgstr ""
+
+#. translators: 1: monitor label, 2: site name
+#: includes/Alerts/AlertManager.php:83
+msgid "Good news — %1$s is passing again on %2$s."
+msgstr ""
+
+#: includes/Alerts/AlertManager.php:135
+msgid "Multiple checks are failing"
+msgstr ""
+
+#. translators: %d: alert count
+#: includes/Alerts/AlertManager.php:138
+msgid "More than %d alerts fired in the last hour, so WatchSpire has switched to a single digest to avoid flooding your inbox. Open the WatchSpire dashboard to see everything that's failing."
+msgstr ""
+
+#. translators: 1: monitor label, 2: site name
+#: includes/Alerts/AlertManager.php:153
+msgid "%1$s failed a check on %2$s."
+msgstr ""
+
+#: includes/Alerts/AlertManager.php:162
+msgid "Detail:"
+msgstr ""
+
+#: includes/Alerts/Channels/WpMailChannel.php:22
+msgid "Email"
+msgstr ""
+
+#. translators: %s: site name
+#: includes/Alerts/Channels/WpMailChannel.php:39
+msgid "[WatchSpire] %s"
+msgstr ""
+
+#: includes/ChangeLog/ChangeLogRecorder.php:207
+msgid "WordPress core"
+msgstr ""
+
+#: includes/Integrations/AbstractIntegration.php:50
+msgid "Form submission failed to deliver."
+msgstr ""
+
+#: includes/Integrations/Adapters/ContactForm7Integration.php:21
+msgid "Contact Form 7"
+msgstr ""
+
+#: includes/Integrations/Adapters/ElementorProIntegration.php:21
+msgid "Elementor Pro Forms"
+msgstr ""
+
+#: includes/Integrations/Adapters/ElementorProIntegration.php:44
+msgid "Elementor Pro form email failed to send."
+msgstr ""
+
+#: includes/Integrations/Adapters/FluentFormsIntegration.php:21
+msgid "Fluent Forms"
+msgstr ""
+
+#: includes/Integrations/Adapters/FluentFormsIntegration.php:43
+msgid "Fluent Forms notification failed to send."
+msgstr ""
+
+#: includes/Integrations/Adapters/ForminatorIntegration.php:21
+msgid "Forminator"
+msgstr ""
+
+#: includes/Integrations/Adapters/ForminatorIntegration.php:38
+msgid "Forminator email failed to send."
+msgstr ""
+
+#: includes/Integrations/Adapters/GravityFormsIntegration.php:21
+msgid "Gravity Forms"
+msgstr ""
+
+#: includes/Integrations/Adapters/GravityFormsIntegration.php:47
+msgid "Gravity Forms email send failed."
+msgstr ""
+
+#: includes/Integrations/Adapters/WPFormsIntegration.php:28
+msgid "WPForms"
+msgstr ""
+
+#: includes/Monitors/Checks/HttpErrorMonitor.php:32
+msgid "404 & server errors"
+msgstr ""
+
+#: includes/Monitors/Checks/HttpErrorMonitor.php:36
+msgid "Watches for missing pages and 5xx server errors, aggregated so it never bloats the database."
+msgstr ""
+
+#. translators: 1: url, 2: status code
+#: includes/Monitors/Checks/HttpErrorMonitor.php:149
+msgid "Server error (%2$d) detected on %1$s."
+msgstr ""
+
+#. translators: 1: hit count, 2: url
+#: includes/Monitors/Checks/HttpErrorMonitor.php:167
+msgid "%1$d 404 hits on %2$s in the last 24 hours."
+msgstr ""
+
+#: includes/Monitors/Checks/HttpErrorMonitor.php:178
+msgid "No unusual 404 or server error activity."
+msgstr ""
+
+#: includes/Monitors/Checks/LinkScanMonitor.php:26
+msgid "Broken links & images"
+msgstr ""
+
+#: includes/Monitors/Checks/LinkScanMonitor.php:30
+msgid "Off by default. When enabled, periodically scans your content for broken links and images in resumable batches."
+msgstr ""
+
+#. translators: 1: checked count, 2: total count, 3: broken count
+#: includes/Monitors/Checks/LinkScanMonitor.php:49
+msgid "Scan in progress: %1$d of %2$d items checked, %3$d broken so far."
+msgstr ""
+
+#: includes/Monitors/Checks/LinkScanMonitor.php:59
+msgid "Link scan is paused."
+msgstr ""
+
+#: includes/Monitors/Checks/LinkScanMonitor.php:68
+msgid "Link scanning is enabled; the first scan is starting."
+msgstr ""
+
+#. translators: 1: number of broken links/images, 2: configured alert threshold
+#: includes/Monitors/Checks/LinkScanMonitor.php:80
+msgid "Last scan found %1$d broken link(s) or image(s), above your alert threshold of %2$d."
+msgstr ""
+
+#. translators: %d: number of broken links/images
+#: includes/Monitors/Checks/LinkScanMonitor.php:92
+msgid "Last scan found %d broken link(s) or image(s)."
+msgstr ""
+
+#: includes/Monitors/Checks/LinkScanMonitor.php:99
+msgid "No broken links or images found in the last scan."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:36
+msgid "Mail deliverability"
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:40
+msgid "Diagnoses your mail setup and periodically sends a real test email to confirm delivery."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:95
+msgid "Mail configuration looks reasonable. Set a test address in Settings to enable live delivery testing."
+msgstr ""
+
+#. translators: %s: error message
+#: includes/Monitors/Checks/MailHealthMonitor.php:102
+msgid "Test email failed to send: %s"
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:103
+#: includes/Monitors/Checks/SslMonitor.php:93
+msgid "unknown error"
+msgstr ""
+
+#. translators: %d: number of failures
+#: includes/Monitors/Checks/MailHealthMonitor.php:113
+msgid "The self-test succeeded, but %d other mail send(s) failed recently."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:124
+msgid "Test email sent successfully."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:166
+msgid "No SMTP plugin detected — mail is sent via PHP mail(), which many hosts throttle, block, or silently drop."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:171
+msgid "The From address domain doesn't match your site's domain, which commonly fails SPF/DKIM checks and lands in spam or gets rejected."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:175
+msgid "Mail configuration looks reasonable."
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:177
+msgid "Fix: install an SMTP plugin (e.g. WP Mail SMTP) and authenticate with your email provider; ensure SPF and DKIM records match your sending domain."
+msgstr ""
+
+#. translators: %s: site name
+#: includes/Monitors/Checks/MailHealthMonitor.php:215
+msgid "[WatchSpire] Test email from %s"
+msgstr ""
+
+#: includes/Monitors/Checks/MailHealthMonitor.php:218
+msgid "This is a scheduled test email from WatchSpire to confirm your site can send mail. No action is needed."
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:24
+msgid "SSL certificate expiry"
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:28
+msgid "Reads your site's own SSL certificate directly and warns you before it expires or stops covering your hostname."
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:39
+msgid "Could not determine site host to check."
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:52
+msgid "Site is not served over HTTPS."
+msgstr ""
+
+#. translators: %s: connection error
+#: includes/Monitors/Checks/SslMonitor.php:92
+msgid "Could not connect to check the SSL certificate: %s"
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:105
+msgid "Could not read the SSL certificate."
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:115
+msgid "Could not parse the SSL certificate."
+msgstr ""
+
+#. translators: %s: hostname
+#: includes/Monitors/Checks/SslMonitor.php:138
+msgid "The SSL certificate does not cover %s (hostname mismatch)."
+msgstr ""
+
+#: includes/Monitors/Checks/SslMonitor.php:148
+msgid "The SSL certificate has expired."
+msgstr ""
+
+#. translators: %d: days remaining
+#: includes/Monitors/Checks/SslMonitor.php:160
+msgid "SSL certificate is valid for %d more day(s)."
+msgstr ""
+
+#. translators: %d: days remaining
+#: includes/Monitors/Checks/SslMonitor.php:171
+msgid "SSL certificate expires in %d day(s)."
+msgstr ""
+
+#: includes/Monitors/Checks/SubmissionGapMonitor.php:41
+msgid "Submission gaps"
+msgstr ""
+
+#: includes/Monitors/Checks/SubmissionGapMonitor.php:45
+msgid "Learns each form's normal submission rate and alerts only when silence is statistically unusual for that specific form."
+msgstr ""
+
+#: includes/Monitors/Checks/SubmissionGapMonitor.php:64
+msgid "All forms with an established baseline are submitting normally."
+msgstr ""
+
+#. translators: 1: form name, 2: days of silence, 3: expected days between submissions
+#: includes/Monitors/Checks/SubmissionGapMonitor.php:72
+msgid "%1$s has received no submissions for %2$s days (normally about one every %3$s day(s))."
+msgstr ""
+
+#: includes/Monitors/Checks/UptimeMonitor.php:31
+msgid "Uptime self-check"
+msgstr ""
+
+#: includes/Monitors/Checks/UptimeMonitor.php:35
+msgid "Loopback checks your homepage and one key page for errors, soft-404s, and maintenance lockouts. Because the request comes from your own server, it cannot detect a site that is fully offline."
+msgstr ""
+
+#: includes/Monitors/Checks/UptimeMonitor.php:67
+msgid "Homepage and key page respond normally."
+msgstr ""
+
+#. translators: %s: error message
+#: includes/Monitors/Checks/UptimeMonitor.php:95
+msgid "Cannot self-check — loopback request failed: %s"
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/Monitors/Checks/UptimeMonitor.php:111
+msgid "Returned a server error (%d)."
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/Monitors/Checks/UptimeMonitor.php:124
+msgid "Returned an error status (%d)."
+msgstr ""
+
+#: includes/Monitors/Checks/UptimeMonitor.php:135
+msgid "Site appears to be in maintenance mode."
+msgstr ""
+
+#: includes/Monitors/Checks/UptimeMonitor.php:144
+msgid "Returned HTTP 200 but the page body looks like a \"not found\" message (soft 404)."
+msgstr ""
+
+#: includes/Monitors/Checks/UptimeMonitor.php:153
+msgid "Returned an empty page — possible white-screen fatal error."
+msgstr ""
+
+#. translators: %s: error message
+#: includes/Monitors/Runner.php:68
+msgid "Monitor crashed: %s"
+msgstr ""
+
+#: includes/Scheduler/Scheduler.php:138
+msgid "System Cron is Recommended"
+msgstr ""
+
+#: includes/Scheduler/Scheduler.php:140
+msgid "For accurate monitoring, enable WordPress cron or set up a real system cron job."
+msgstr ""
+
+#: includes/Scheduler/Scheduler.php:143
+msgid "Show the cron command"
+msgstr ""
+
+#: includes/Scheduler/Scheduler.php:149
+msgid "How to Set Up Cron"
+msgstr ""
+
+#: includes/Scheduler/Scheduler.php:154
+msgid "Dismiss"
+msgstr ""
+
+#. translators: %s: site name
+#: includes/Support/WeeklyDigest.php:106
+msgid "[WatchSpire] Weekly summary for %s"
+msgstr ""
+
+#. translators: %s: site name
+#: includes/Support/WeeklyDigest.php:134
+msgid "Weekly WatchSpire summary for %s"
+msgstr ""
+
+#. translators: %s: pass rate percentage
+#: includes/Support/WeeklyDigest.php:143
+msgid "Uptime self-check pass rate: %s%%"
+msgstr ""
+
+#. translators: %d: days remaining
+#: includes/Support/WeeklyDigest.php:151
+msgid "SSL certificate: %d day(s) remaining"
+msgstr ""
+
+#. translators: %d: number of failures
+#: includes/Support/WeeklyDigest.php:159
+msgid "Failures this week: %d"
+msgstr ""
+
+#: includes/Support/WeeklyDigest.php:169
+msgid "Form submissions:"
+msgstr ""
+
+#. translators: %d: number of broken links
+#: includes/Support/WeeklyDigest.php:178
+msgid "New broken links/images found: %d"
+msgstr ""
+
+#: includes/Support/WeeklyDigest.php:184
+msgid "Changes made this week:"
+msgstr ""
+
+#: includes/Support/WeeklyDigest.php:193
+msgid "AI crawler activity:"
+msgstr ""
+
+#. translators: %s: settings URL
+#: includes/Support/WeeklyDigest.php:204
+msgid "To stop these emails, disable the weekly summary here: %s"
+msgstr ""
+
+#. translators: 1: required PHP version, 2: current PHP version
+#: watchspire.php:43
+msgid "WatchSpire requires PHP %1$s or higher. Your site is running PHP %2$s. The plugin has been deactivated."
+msgstr ""
+
+#: watchspire.php:74
+msgid "WatchSpire is missing its dependencies. Please run \"composer install\" or reinstall the plugin from WordPress.org."
+msgstr ""
