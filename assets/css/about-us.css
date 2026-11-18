@@ -1,0 +1,871 @@
+/**
+ * About Us page – the CodeSolz plugin family.
+ * Scoped to .watchspire-about-wrap so nothing leaks into other admin screens.
+ *
+ * @package WatchSpire
+ */
+
+/* ---- Reset & Scope ---- */
+.watchspire-about-wrap *,
+.watchspire-about-wrap *::before,
+.watchspire-about-wrap *::after {
+	box-sizing: border-box;
+}
+
+.watchspire-about-wrap {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	color: #0f172a;
+	/* max-width: 1180px; */
+	margin: 0 auto;
+	padding: 10px 0 48px;
+	line-height: 1.5;
+}
+
+/* ---- Headings reset inside wrap ---- */
+.watchspire-about-wrap h1,
+.watchspire-about-wrap h2,
+.watchspire-about-wrap h3 {
+	padding: 0;
+	border: none;
+	font-weight: 700;
+	line-height: 1.25;
+	color: #0f172a;
+}
+
+.watchspire-about-wrap p {
+	margin: 0;
+}
+
+.watchspire-about-wrap ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.watchspire-about-wrap a {
+	text-decoration: none;
+}
+
+/* ================================================================
+   HERO SECTION
+   ================================================================ */
+
+.watchspire-about-hero {
+	background:
+		radial-gradient( circle at top left, rgba( 96, 165, 250, 0.28 ), transparent 30% ),
+		radial-gradient( circle at 85% 18%, rgba( 192, 132, 252, 0.20 ), transparent 24% ),
+		linear-gradient( 135deg, #0f172a 0%, #172554 46%, #312e81 100% );
+	border: 1px solid rgba( 255, 255, 255, 0.12 );
+	border-radius: 24px;
+	padding: 34px;
+	margin-bottom: 40px;
+	position: relative;
+	overflow: hidden;
+	color: #fff;
+	box-shadow: 0 24px 60px rgba( 15, 23, 42, 0.24 );
+}
+
+.watchspire-about-hero::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient( 120deg, rgba( 255, 255, 255, 0.06 ), transparent 38%, rgba( 255, 255, 255, 0.03 ) 72%, transparent 100% );
+	pointer-events: none;
+}
+
+.watchspire-about-hero::after {
+	content: '';
+	position: absolute;
+	top: -84px;
+	right: -72px;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	background: radial-gradient( circle, rgba( 255, 255, 255, 0.18 ) 0%, rgba( 255, 255, 255, 0 ) 70% );
+	filter: blur( 10px );
+	pointer-events: none;
+}
+
+.watchspire-about-hero-grid {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: minmax( 0, 1.35fr ) minmax( 320px, 0.95fr );
+	gap: 30px;
+	align-items: stretch;
+}
+
+.watchspire-about-hero-copy {
+	padding: 8px 4px 8px 0;
+}
+
+.watchspire-about-hero-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	background: rgba( 255, 255, 255, 0.09 );
+	border: 1px solid rgba( 255, 255, 255, 0.16 );
+	border-radius: 100px;
+	padding: 7px 14px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 1.4px;
+	text-transform: uppercase;
+	color: #e2e8f0;
+	margin-bottom: 20px;
+	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.08 );
+}
+
+.watchspire-about-wrap .watchspire-about-hero-title {
+	font-size: 44px;
+	font-weight: 800;
+	line-height: 1.05;
+	margin: 0 0 18px;
+	color: #fff;
+	text-shadow: none;
+	letter-spacing: -1px;
+	/* max-width: 11ch; */
+}
+
+.watchspire-about-hero-subtitle {
+	font-size: 16px;
+	line-height: 1.8;
+	color: rgba( 226, 232, 240, 0.86 );
+	margin: 0 0 24px !important;
+	max-width: 640px;
+}
+
+.watchspire-about-hero-points {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 0 0 30px;
+}
+
+.watchspire-about-hero-point {
+	display: inline-flex;
+	align-items: center;
+	min-height: 40px;
+	padding: 10px 14px;
+	border: 1px solid rgba( 255, 255, 255, 0.14 );
+	border-radius: 999px;
+	background: rgba( 15, 23, 42, 0.24 );
+	color: #f8fafc;
+	font-size: 12.5px;
+	font-weight: 600;
+	line-height: 1.45;
+}
+
+.watchspire-about-hero-actions {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex-wrap: wrap;
+}
+
+.watchspire-about-hero-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	background: #fff;
+	color: #111827 !important;
+	font-size: 14px;
+	font-weight: 700;
+	padding: 12px 22px;
+	border-radius: 12px;
+	transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+	border: none;
+	text-decoration: none !important;
+	box-shadow: 0 12px 30px rgba( 15, 23, 42, 0.22 );
+}
+
+.watchspire-about-hero-cta:hover {
+	transform: translateY( -2px );
+	box-shadow: 0 16px 34px rgba( 15, 23, 42, 0.28 );
+	background: #f8fafc;
+	color: #0f172a !important;
+	text-decoration: none !important;
+}
+
+.watchspire-about-hero-link {
+	display: inline-flex;
+	align-items: center;
+	padding: 11px 0;
+	color: #dbeafe !important;
+	font-size: 14px;
+	font-weight: 700;
+	border-bottom: 1px solid rgba( 219, 234, 254, 0.38 );
+	transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.watchspire-about-hero-link:hover {
+	color: #fff !important;
+	border-color: rgba( 255, 255, 255, 0.9 );
+	transform: translateY( -1px );
+}
+
+.watchspire-about-hero-showcase {
+	display: flex;
+}
+
+.watchspire-about-hero-panel {
+	width: 100%;
+	background: linear-gradient( 180deg, rgba( 255, 255, 255, 0.14 ), rgba( 255, 255, 255, 0.06 ) );
+	border: 1px solid rgba( 255, 255, 255, 0.16 );
+	border-radius: 22px;
+	padding: 24px;
+	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.08 ), 0 18px 45px rgba( 15, 23, 42, 0.18 );
+}
+
+.watchspire-about-hero-panel-label {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 1.6px;
+	text-transform: uppercase;
+	color: #c4b5fd;
+	margin-bottom: 10px;
+}
+
+.watchspire-about-wrap .watchspire-about-hero-panel-title {
+	font-size: 22px;
+	font-weight: 800;
+	line-height: 1.25;
+	margin: 0 0 18px;
+	color: #fff;
+}
+
+.watchspire-about-hero-feature-list {
+	display: grid;
+	gap: 12px;
+}
+
+.watchspire-about-hero-feature {
+	padding: 14px 15px;
+	border-radius: 16px;
+	background: rgba( 15, 23, 42, 0.28 );
+	border: 1px solid rgba( 255, 255, 255, 0.10 );
+}
+
+.watchspire-about-hero-feature strong {
+	display: block;
+	font-size: 14px;
+	font-weight: 700;
+	margin-bottom: 6px;
+	color: #fff;
+}
+
+.watchspire-about-hero-feature span {
+	display: block;
+	font-size: 12.8px;
+	line-height: 1.6;
+	color: rgba( 226, 232, 240, 0.82 );
+}
+
+.watchspire-about-hero-proof {
+	display: grid;
+	grid-template-columns: repeat( 2, minmax( 0, 1fr ) );
+	gap: 12px;
+	margin-top: 16px;
+}
+
+.watchspire-about-hero-proof-item {
+	padding: 16px;
+	border-radius: 16px;
+	background: rgba( 255, 255, 255, 0.08 );
+	border: 1px solid rgba( 255, 255, 255, 0.10 );
+}
+
+.watchspire-about-hero-proof-value {
+	display: block;
+	font-size: 26px;
+	font-weight: 800;
+	letter-spacing: -0.5px;
+	color: #fff;
+	margin-bottom: 6px;
+}
+
+.watchspire-about-hero-proof-label {
+	display: block;
+	font-size: 12px;
+	line-height: 1.55;
+	color: rgba( 226, 232, 240, 0.80 );
+}
+
+/* ================================================================
+   SECTION HEADER
+   ================================================================ */
+
+.watchspire-about-section-header {
+	margin-bottom: 22px;
+}
+
+.watchspire-about-section-label {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 1.6px;
+	text-transform: uppercase;
+	color: #7c3aed;
+	margin-bottom: 6px;
+}
+
+.watchspire-about-wrap .watchspire-about-section-title {
+	font-size: 20px;
+	font-weight: 800;
+	color: #0f172a;
+	margin: 0 0 6px;
+	border: none;
+	padding: 0;
+	letter-spacing: -0.2px;
+}
+
+.watchspire-about-section-desc {
+	font-size: 13.5px;
+	color: #64748b;
+}
+
+/* ================================================================
+   FEATURED PLUGIN CARD
+   ================================================================ */
+
+.watchspire-about-featured-card {
+	background: #fff;
+	border-radius: 16px;
+	border: 1px solid #e2e8f0;
+	padding: 36px;
+	margin-bottom: 40px;
+	box-shadow: 0 2px 6px rgba( 0, 0, 0, 0.04 ), 0 6px 20px rgba( 0, 0, 0, 0.04 );
+	position: relative;
+	overflow: hidden;
+}
+
+/* Top accent bar */
+.watchspire-about-featured-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient( 90deg, #2563eb, #7c3aed );
+	border-radius: 16px 16px 0 0;
+}
+
+.watchspire-about-featured-inner {
+	display: flex;
+	align-items: flex-start;
+	gap: 30px;
+}
+
+.watchspire-about-featured-icon-wrap {
+	flex-shrink: 0;
+	width: 72px;
+	height: 72px;
+	background: linear-gradient( 135deg, #dbeafe, #ede9fe );
+	border-radius: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+}
+
+.watchspire-about-featured-body {
+	flex: 1;
+	min-width: 0;
+}
+
+.watchspire-about-featured-meta {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 10px;
+	flex-wrap: wrap;
+}
+
+/* ================================================================
+   BADGES
+   ================================================================ */
+
+.watchspire-about-badge {
+	display: inline-flex;
+	align-items: center;
+	font-size: 11px;
+	font-weight: 700;
+	padding: 3px 10px;
+	border-radius: 100px;
+	letter-spacing: 0.3px;
+	white-space: nowrap;
+}
+
+.watchspire-about-badge.active {
+	background: #dcfce7;
+	color: #15803d;
+}
+
+.watchspire-about-badge.popular {
+	background: #fef3c7;
+	color: #92400e;
+}
+
+.watchspire-about-badge.free {
+	background: #dbeafe;
+	color: #1d4ed8;
+}
+
+.watchspire-about-badge.premium {
+	background: #f3e8ff;
+	color: #6d28d9;
+}
+
+.watchspire-about-badge.coming-soon {
+	background: #fef3c7;
+	color: #92400e;
+	font-size: 9.5px;
+	padding: 2px 7px;
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+	margin-left: 6px;
+}
+
+.watchspire-about-badge.featured-label {
+	background: linear-gradient( 90deg, #2563eb, #7c3aed );
+	color: #fff;
+	font-size: 10px;
+	letter-spacing: 0.8px;
+	text-transform: uppercase;
+}
+
+/* ================================================================
+   FEATURED CARD BODY
+   ================================================================ */
+
+.watchspire-about-wrap .watchspire-about-featured-title {
+	font-size: 26px;
+	font-weight: 800;
+	color: #0f172a;
+	margin: 0 0 10px;
+	letter-spacing: -0.3px;
+}
+
+.watchspire-about-featured-desc {
+	font-size: 14.5px;
+	line-height: 1.72;
+	color: #475569;
+	margin: 0 0 22px;
+	max-width: 640px;
+}
+
+.watchspire-about-feature-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px 28px;
+	margin: 0 0 26px;
+}
+
+.watchspire-about-feature-list li {
+	font-size: 13.5px;
+	color: #334155;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.watchspire-about-feature-list li::before {
+	content: '✓';
+	color: #2563eb;
+	font-weight: 800;
+	font-size: 12px;
+	flex-shrink: 0;
+}
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+
+.watchspire-about-btn-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+}
+
+.watchspire-about-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 18px;
+	border-radius: 7px;
+	font-size: 13.5px;
+	font-weight: 600;
+	text-decoration: none !important;
+	transition: all 0.15s ease;
+	border: 1px solid transparent;
+	cursor: pointer;
+	line-height: 1.4;
+}
+
+.watchspire-about-btn:hover {
+	text-decoration: none !important;
+	transform: translateY( -1px );
+}
+
+.watchspire-about-btn.primary {
+	background: #2563eb;
+	color: #fff !important;
+	border-color: #2563eb;
+}
+
+.watchspire-about-btn.primary:hover {
+	background: #1d4ed8;
+	border-color: #1d4ed8;
+	color: #fff !important;
+	box-shadow: 0 4px 14px rgba( 37, 99, 235, 0.32 );
+}
+
+.watchspire-about-btn.secondary {
+	background: #fff;
+	color: #374151 !important;
+	border-color: #d1d5db;
+}
+
+.watchspire-about-btn.secondary:hover {
+	background: #f9fafb;
+	color: #111827 !important;
+	border-color: #9ca3af;
+}
+
+.watchspire-about-btn.outline-purple {
+	background: transparent;
+	color: #7c3aed !important;
+	border-color: #c4b5fd;
+}
+
+.watchspire-about-btn.outline-purple:hover {
+	background: #f5f3ff;
+	color: #6d28d9 !important;
+	border-color: #a78bfa;
+}
+
+/* ================================================================
+   PLUGIN GRID
+   ================================================================ */
+
+.watchspire-about-plugins-grid {
+	display: grid;
+	grid-template-columns: repeat( 3, 1fr );
+	gap: 20px;
+	margin-bottom: 40px;
+}
+
+.watchspire-about-plugin-card {
+	background: #fff;
+	border-radius: 12px;
+	border: 1px solid #e2e8f0;
+	padding: 24px;
+	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.04 );
+	transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+	display: flex;
+	flex-direction: column;
+}
+
+.watchspire-about-plugin-card:hover {
+	transform: translateY( -3px );
+	box-shadow: 0 10px 28px rgba( 0, 0, 0, 0.09 );
+	border-color: #c7d2fe;
+}
+
+.watchspire-about-card-top {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.watchspire-about-card-heading {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 5px;
+	min-width: 0;
+}
+
+.watchspire-about-card-subtitle {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.35;
+	color: #64748b;
+}
+
+.watchspire-about-card-icon {
+	width: 48px;
+	height: 48px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	overflow: hidden;
+	background: #f8fafc;
+	border: 1px solid #e8edf4;
+}
+
+.watchspire-about-card-icon img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: inherit;
+}
+
+/* Icon background colors */
+.watchspire-about-icon-blue   { background: #dbeafe; }
+.watchspire-about-icon-purple { background: #ede9fe; }
+.watchspire-about-icon-green  { background: #dcfce7; }
+.watchspire-about-icon-orange { background: #ffedd5; }
+.watchspire-about-icon-pink   { background: #fce7f3; }
+.watchspire-about-icon-teal   { background: #ccfbf1; }
+
+.watchspire-about-wrap .watchspire-about-card-title {
+	font-size: 15px;
+	font-weight: 700;
+	color: #0f172a;
+	margin: 0;
+	line-height: 1.3;
+}
+
+.watchspire-about-wrap .watchspire-about-card-title .watchspire-about-badge {
+	font-weight: 700;
+}
+
+.watchspire-about-card-desc {
+	font-size: 13px;
+	line-height: 1.68;
+	color: #64748b;
+	margin: 0 0 16px;
+	flex: 1;
+}
+
+.watchspire-about-card-features {
+	margin: 0 0 18px;
+}
+
+.watchspire-about-card-features li {
+	font-size: 12.5px;
+	color: #475569;
+	padding: 3px 0;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.watchspire-about-card-features li::before {
+	content: '→';
+	color: #94a3b8;
+	font-size: 11px;
+	flex-shrink: 0;
+}
+
+.watchspire-about-card-footer {
+	margin-top: auto;
+	padding-top: 16px;
+	border-top: 1px solid #f1f5f9;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.watchspire-about-card-link {
+	font-size: 12.5px;
+	font-weight: 600;
+	line-height: 1.4;
+	text-decoration: none !important;
+	transition: color 0.15s ease;
+}
+
+.watchspire-about-card-link.pro {
+	color: #7c3aed !important;
+}
+
+.watchspire-about-card-link.pro:hover {
+	color: #6d28d9 !important;
+	text-decoration: underline !important;
+}
+
+.watchspire-about-card-link.wporg {
+	color: #2563eb !important;
+	margin-left: auto;
+	text-align: right;
+}
+
+.watchspire-about-card-link.wporg:hover {
+	color: #1d4ed8 !important;
+	text-decoration: underline !important;
+}
+
+
+/* ================================================================
+   TRUST / FOOTER SECTION
+   ================================================================ */
+
+.watchspire-about-trust-section {
+	background: linear-gradient( 145deg, #f8fafc 0%, #f0f4ff 100% );
+	border-radius: 16px;
+	border: 1px solid #e2e8f0;
+	padding: 50px 36px;
+	text-align: center;
+}
+
+.watchspire-about-trust-logo {
+	font-size: 22px;
+	font-weight: 800;
+	color: #1e3a8a;
+	margin-bottom: 14px;
+	letter-spacing: -0.4px;
+}
+
+.watchspire-about-trust-logo span {
+	color: #7c3aed;
+}
+
+.watchspire-about-wrap .watchspire-about-trust-tagline {
+	font-size: 19px;
+	font-weight: 800;
+	color: #0f172a;
+	margin: 0 0 12px;
+	letter-spacing: -0.2px;
+}
+
+.watchspire-about-trust-desc {
+	font-size: 14px;
+	color: #64748b;
+	margin: 0 auto 30px !important;
+	line-height: 1.72;
+}
+
+.watchspire-about-trust-links {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.watchspire-about-trust-links .watchspire-about-btn {
+	font-size: 13px;
+	padding: 9px 18px;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media screen and ( max-width: 1100px ) {
+	.watchspire-about-hero-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.watchspire-about-wrap .watchspire-about-hero-title {
+		max-width: none;
+	}
+
+	.watchspire-about-plugins-grid {
+		grid-template-columns: repeat( 2, 1fr );
+	}
+}
+
+@media screen and ( max-width: 760px ) {
+	.watchspire-about-hero {
+		padding: 28px 20px;
+		border-radius: 18px;
+	}
+
+	.watchspire-about-wrap .watchspire-about-hero-title {
+		font-size: 30px;
+		line-height: 1.12;
+	}
+
+	.watchspire-about-hero-subtitle {
+		font-size: 14px;
+	}
+
+	.watchspire-about-hero-points {
+		gap: 8px;
+	}
+
+	.watchspire-about-hero-point {
+		width: 100%;
+		justify-content: center;
+		text-align: center;
+		border-radius: 14px;
+	}
+
+	.watchspire-about-hero-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.watchspire-about-hero-cta,
+	.watchspire-about-hero-link {
+		justify-content: center;
+	}
+
+	.watchspire-about-hero-panel {
+		padding: 20px;
+		border-radius: 18px;
+	}
+
+	.watchspire-about-wrap .watchspire-about-hero-panel-title {
+		font-size: 19px;
+	}
+
+	.watchspire-about-hero-proof {
+		grid-template-columns: 1fr;
+	}
+
+	.watchspire-about-featured-inner {
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.watchspire-about-featured-card {
+		padding: 26px;
+	}
+
+	.watchspire-about-plugins-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.watchspire-about-trust-section {
+		padding: 36px 22px;
+	}
+
+	.watchspire-about-card-footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.watchspire-about-card-link.wporg {
+		margin-left: 0;
+		text-align: left;
+	}
+}
+
+/* The active plugin's own icon in the featured card. */
+.watchspire-about-featured-icon-wrap {
+	overflow: hidden;
+	background: #f8fafc;
+	border: 1px solid #e8edf4;
+}
+
+.watchspire-about-featured-icon-wrap img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}

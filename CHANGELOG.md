@@ -1,5 +1,8 @@
 # Watchspire Changelog
 
+### Version: 1.0.1 ###
+* **New:** About Us page at the end of the WatchSpire menu: what this plugin does, where to get help, and the other CodeSolz plugins. Its icons ship with the plugin, so the page loads nothing from outside your site.
+
 ### Version: 1.0.0 ###
 * **New:** WordPress site-health dashboard with a unified operational overview, 7/30/90-day look-backs and a custom start/end date range
 * **New:** Form delivery monitoring for Contact Form 7, WPForms, Gravity Forms, Elementor Pro Forms, Fluent Forms, and Forminator

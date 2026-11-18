@@ -3,7 +3,7 @@
         'name' => 'watchspire/watchspire',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3fd99bc019a82e9c2dc7ad2b455e30d0d0233550',
+        'reference' => 'a6de50013ec42bd1b82382fb5e8099b99109c182',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'watchspire/watchspire' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3fd99bc019a82e9c2dc7ad2b455e30d0d0233550',
+            'reference' => 'a6de50013ec42bd1b82382fb5e8099b99109c182',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

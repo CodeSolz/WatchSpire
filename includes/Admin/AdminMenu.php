@@ -28,6 +28,9 @@ final class AdminMenu {
 	/** Menu slug for the "Upgrade to Pro" pointer; it renders no page of its own. */
 	private const UPGRADE_PAGE = 'watchspire-go-pro';
 
+	/** Menu slug of the About Us page. */
+	private const ABOUT_PAGE = 'watchspire-about';
+
 	/**
 	 * Preset dashboard look-back windows, in days. Always available; the
 	 * watchspire_dashboard_allowed_ranges filter can add to these but
@@ -46,6 +49,7 @@ final class AdminMenu {
 
 	public function boot(): void {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
+		add_action( 'admin_menu', array( $this, 'move_about_to_end' ), 10000 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'admin_init', array( $this, 'maybe_redirect_to_upgrade' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_upgrade_link_script' ) );
@@ -89,6 +93,38 @@ final class AdminMenu {
 				'__return_null'
 			);
 		}
+
+		// Informational page, kept as the last item by move_about_to_end().
+		add_submenu_page( 'watchspire', __( 'About Us', 'watchspire' ), __( 'About Us', 'watchspire' ), self::CAPABILITY, self::ABOUT_PAGE, array( $this, 'render_about' ) );
+	}
+
+	/**
+	 * Keeps About Us as the last WatchSpire menu item, even after an add-on
+	 * (Pro) adds or reorders pages later on admin_menu.
+	 */
+	public function move_about_to_end(): void {
+		global $submenu;
+
+		if ( empty( $submenu['watchspire'] ) || ! is_array( $submenu['watchspire'] ) ) {
+			return;
+		}
+
+		foreach ( $submenu['watchspire'] as $index => $item ) {
+			if ( isset( $item[2] ) && self::ABOUT_PAGE === $item[2] ) {
+				unset( $submenu['watchspire'][ $index ] );
+				$submenu['watchspire']   = array_values( $submenu['watchspire'] ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				$submenu['watchspire'][] = $item; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				break;
+			}
+		}
+	}
+
+	public function render_about(): void {
+		if ( ! current_user_can( self::CAPABILITY ) ) {
+			return;
+		}
+
+		include WATCHSPIRE_DIR . 'includes/Admin/Views/about-us.php';
 	}
 
 	/**
@@ -154,6 +190,13 @@ final class AdminMenu {
 
 	public function enqueue_assets( string $hook ): void {
 		if ( false === strpos( $hook, 'watchspire' ) ) {
+			return;
+		}
+
+		// The About Us page is self-contained: only its own stylesheet.
+		if ( str_ends_with( $hook, '_page_' . self::ABOUT_PAGE ) ) {
+			$about_css = WATCHSPIRE_DIR . 'assets/css/about-us.css';
+			wp_enqueue_style( 'watchspire-about', WATCHSPIRE_URL . 'assets/css/about-us.css', array(), file_exists( $about_css ) ? (string) filemtime( $about_css ) : WATCHSPIRE_VERSION );
 			return;
 		}
 

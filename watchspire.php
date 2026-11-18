@@ -3,7 +3,7 @@
  * Plugin Name:       WatchSpire – Form, Email & Uptime Monitor with Failure Alerts
  * Plugin URI:        https://codesolz.net/our-products/wordpress-plugin/watchspire
  * Description:       Monitors contact form delivery, SSL certificate expiry, 404/500 errors, uptime, and broken links — alerts you by email when something silently breaks.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            WatchSpire
@@ -16,7 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WATCHSPIRE_VERSION', '1.0.0' );
+define( 'WATCHSPIRE_VERSION', '1.0.1' );
 define( 'WATCHSPIRE_DB_VERSION', '1' );
 define( 'WATCHSPIRE_FILE', __FILE__ );
 define( 'WATCHSPIRE_DIR', plugin_dir_path( __FILE__ ) );

@@ -4,7 +4,7 @@ Tags: contact form, email delivery, uptime monitor, broken links, server errors
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -385,6 +385,10 @@ Data and privacy controls are available from WatchSpire settings.
 4. **Settings** — alert email, key page, weekly summary, monitor intervals, auto-resolve, data retention, export, link scanning, and a plain summary of what does and does not leave your site.
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Added an About Us page at the end of the WatchSpire menu: what this plugin does, where to get help, and the other CodeSolz plugins. Its icons ship with the plugin, so the page loads nothing from outside your site.
 
 = 1.0.0 =
 
